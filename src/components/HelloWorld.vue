@@ -130,7 +130,8 @@
                 <div class="mat-cell">Food</div>
                 <div class="mat-cell">$10</div>
                 <div class="mat-cell">$2</div>
-                <div class="mat-cell">$8</div>
+                <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
+
               </div>
             </div>
             <v-card class="white">
@@ -139,14 +140,12 @@
                   <div class="mat-cell">eating out</div>
                   <div class="mat-cell">$10</div>
                   <div class="mat-cell">$2</div>
-                  <div class="mat-cell">$8</div>
+                  <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
                 </div>
               </v-card-text>
             </v-card>
           </v-expansion-panel-content>
         </v-expansion-panel>
-
-
       </md-app-content>
     </md-app>
   </div>
@@ -182,7 +181,7 @@
   .budget-badge {
     color: white;
     padding: 4px;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   .cash-badge {
