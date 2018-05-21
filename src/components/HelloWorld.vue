@@ -41,19 +41,19 @@
           <span>&nbsp;&nbsp;Cash </span>
 
           <div class="md-toolbar-section-end">
-            <md-badge class="md-square cash-badge" md-content="$1526" style="margin-right:20px;" />
+            <md-badge class="md-square" md-content="$1526" style="margin-right:20px;background-color:green;"></md-badge>
           </div>
         </md-toolbar>
 
         <md-list>
           <md-list-item>
             <span class="md-list-item-text">&nbsp;&nbsp;M&T Checking</span>
-            <md-badge class="md-square cash-badge" md-content="$1000" />
+            <md-badge class="md-square cash-badge" md-content="$1000" style="background-color:green;"></md-badge>
           </md-list-item>
 
           <md-list-item>
             <span class="md-list-item-text">&nbsp;&nbsp;Key Checking</span>
-            <md-badge class="md-square cash-badge" md-content="$526" />
+            <md-badge class="cash-badge md-square" md-content="$526" style="background-color:green;"></md-badge>
           </md-list-item>
 
           <md-list-item>
@@ -306,6 +306,14 @@
   .md-drawer {
     width: 230px;
     /*max-width: calc(100vw - 125px);*/
+  }
+
+  /* fix the border on the sidebar */
+  .md-content {
+    border: none;
+  }
+  .md-drawer {
+    border-right: 1px solid lightgray;
   }
 
   .over-budget-badge {
