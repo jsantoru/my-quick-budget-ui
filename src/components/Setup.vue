@@ -1,5 +1,5 @@
 <template>
-  <h2>Reports</h2>
+  <h2>Setup</h2>
 </template>
 
 <style scoped>
@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: "Reports",
+    name: "Setup",
     data: () => ({
     }),
     methods: {
