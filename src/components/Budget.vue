@@ -6,10 +6,10 @@
     </div>
     <div class="mat-table">
       <div class="mat-header-row">
-        <div class="mat-header-cell">category</div>
-        <div class="mat-header-cell">budgeted</div>
-        <div class="mat-header-cell">spent</div>
-        <div class="mat-header-cell">remaining</div>
+        <div class="mat-header-cell">CATEGORY</div>
+        <div class="mat-header-cell">BUDGETED</div>
+        <div class="mat-header-cell">SPENT</div>
+        <div class="mat-header-cell">REMAINING</div>
       </div>
     </div>
     <v-expansion-panel>
@@ -117,6 +117,12 @@
 
   .category-group-row {
     display: flex;
+  }
+
+  .mat-row,
+  .mat-header-row,
+  .category-group-row {
+    font-size: 12px;
   }
 
   .mat-cell,

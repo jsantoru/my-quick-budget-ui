@@ -63,7 +63,7 @@
   import Drawer from './Drawer.vue';
 
   export default {
-    name: "HelloWorld",
+    name: "PageContainer",
     components: {
       "Drawer": Drawer
     },
