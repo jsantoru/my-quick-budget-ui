@@ -6,10 +6,10 @@
     </div>
     <div class="mat-table">
       <div class="mat-header-row">
-        <div class="mat-header-cell">CATEGORY</div>
-        <div class="mat-header-cell">BUDGETED</div>
-        <div class="mat-header-cell">SPENT</div>
-        <div class="mat-header-cell">REMAINING</div>
+        <div class="mat-header-cell category-col">CATEGORY</div>
+        <div class="mat-header-cell currency-col">BUDGETED</div>
+        <div class="mat-header-cell currency-col">SPENT</div>
+        <div class="mat-header-cell currency-col last-col">REMAINING</div>
       </div>
     </div>
 
@@ -18,21 +18,21 @@
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
-            <div class="mat-cell">
+            <div class="mat-cell category-col">
               <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
               <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
               <span class="category-group-name">{{categoryGroup.name}}</span></div>
-            <div class="mat-cell">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
-            <div class="mat-cell">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
-            <div class="mat-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col last-col">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
 
           </div>
         </div>
         <div v-for="category in categoryGroup.categories" class="mat-row">
-          <div class="mat-cell">{{category.name}}</div>
-          <div class="mat-cell">{{category.budgeted | currency}}</div>
-          <div class="mat-cell">{{category.spent | currency}}</div>
-          <div class="mat-cell">{{(category.budgeted - category.spent) | currency}}</div>
+          <div class="mat-cell category-col">{{category.name}}</div>
+          <div class="mat-cell currency-col">{{category.budgeted | currency}}</div>
+          <div class="mat-cell currency-col">{{category.spent | currency}}</div>
+          <div class="mat-cell currency-col last-col">{{(category.budgeted - category.spent) | currency}}</div>
         </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -113,9 +113,26 @@
     /*border:1px solid black;*/
   }
 
+  .category-col {
+    flex: .5;
+  }
+
+  .currency-col {
+    /*border: 1px solid black;*/
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .last-col {
+    padding-right:20px;
+  }
+
   .expansion-panel__header {
     background-color: whitesmoke;
   }
+
+  /** TODO: hide */
+
 </style>
 
 <script>
