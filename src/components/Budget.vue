@@ -18,7 +18,10 @@
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
-            <div class="mat-cell">{{categoryGroup.name}}</div>
+            <div class="mat-cell">
+              <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
+              <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
+              <span class="category-group-name">{{categoryGroup.name}}</span></div>
             <div class="mat-cell">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
@@ -39,6 +42,10 @@
 <style scoped>
   .heading {
     text-align: center;
+  }
+
+  .category-group-name {
+    padding-left: 5px;
   }
 
   .over-budget-badge {
@@ -144,6 +151,7 @@
           categoryGroups: [
             {
               name: "Food",
+              mdicon: "fastfood",
               categories: [
                 {name: "Groceries", budgeted: 400, spent: 327.37},
                 {name: "Family Eating Out", budgeted: 175, spent: 158.99},
