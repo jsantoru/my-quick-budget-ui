@@ -93,205 +93,60 @@
         <h2>Budget</h2>
         <p>Totally sweet budget subtext and options</p>
 
-        <button class="accordion" @click="collapse">
-          <span><md-icon>fastfood</md-icon>&nbsp;&nbsp;Food</span>
-          <div class="md-toolbar-section-end">
+        <div class="mat-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell">category</div>
+            <div class="mat-header-cell">budgeted</div>
+            <div class="mat-header-cell">spent</div>
+            <div class="mat-header-cell">remaining</div>
           </div>
-        </button>
-        <div class="panel">
-          <md-table class="food-table" :class="{collapsed: isCollapsed}">
-            <md-table-row>
-              <md-table-head>Category</md-table-head>
-              <md-table-head>Budgeted</md-table-head>
-              <md-table-head>Spent</md-table-head>
-              <md-table-head>Remaining</md-table-head>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Family</md-table-cell>
-              <md-table-cell>$100</md-table-cell>
-              <md-table-cell>$185</md-table-cell>
-              <md-table-cell><span class="budget-badge over-budget-badge">-$85</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Work</md-table-cell>
-              <md-table-cell>$50</md-table-cell>
-              <md-table-cell>$30</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$20</span></md-table-cell>
-            </md-table-row>
-          </md-table>
         </div>
-
-        <button class="accordion">
-          <span><md-icon>home</md-icon>&nbsp;&nbsp;Housing</span>
-          <div class="md-toolbar-section-end">
-          </div>
-        </button>
-        <div class="panel">
-          <md-table class="food-table">
-            <md-table-row>
-              <md-table-head>Category</md-table-head>
-              <md-table-head>Budgeted</md-table-head>
-              <md-table-head>Spent</md-table-head>
-              <md-table-head>Remaining</md-table-head>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Family</md-table-cell>
-              <md-table-cell>$100</md-table-cell>
-              <md-table-cell>$185</md-table-cell>
-              <md-table-cell><span class="budget-badge over-budget-badge">-$85</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Work</md-table-cell>
-              <md-table-cell>$50</md-table-cell>
-              <md-table-cell>$30</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$20</span></md-table-cell>
-            </md-table-row>
-          </md-table>
-        </div>
+        <v-expansion-panel>
+          <v-expansion-panel-content :value="true" class="grey lighten-3">
+            <div slot="header">
+              <div class="category-group-row">
+                <div class="mat-cell">Housing</div>
+                <div class="mat-cell">$1000</div>
+                <div class="mat-cell">$1000</div>
+                <div class="mat-cell">$0</div>
+              </div>
+            </div>
+            <v-card class="white">
+              <v-card-text>
+                <div class="mat-row">
+                  <div class="mat-cell">rent</div>
+                  <div class="mat-cell">$1000</div>
+                  <div class="mat-cell">$1000</div>
+                  <div class="mat-cell">$0</div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-content :value="true" class="grey lighten-3">
+            <div slot="header">
+              <div class="category-group-row">
+                <div class="mat-cell">Food</div>
+                <div class="mat-cell">$10</div>
+                <div class="mat-cell">$2</div>
+                <div class="mat-cell">$8</div>
+              </div>
+            </div>
+            <v-card class="white">
+              <v-card-text>
+                <div class="mat-row">
+                  <div class="mat-cell">eating out</div>
+                  <div class="mat-cell">$10</div>
+                  <div class="mat-cell">$2</div>
+                  <div class="mat-cell">$8</div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
 
-        <button class="accordion">
-          <span><md-icon>drive_eta</md-icon>&nbsp;&nbsp;Transportation</span>
-          <div class="md-toolbar-section-end">
-          </div>
-        </button>
-        <div class="panel">
-          <md-table class="food-table">
-            <md-table-row>
-              <md-table-head>Category</md-table-head>
-              <md-table-head>Budgeted</md-table-head>
-              <md-table-head>Spent</md-table-head>
-              <md-table-head>Remaining</md-table-head>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Family</md-table-cell>
-              <md-table-cell>$100</md-table-cell>
-              <md-table-cell>$185</md-table-cell>
-              <md-table-cell><span class="budget-badge over-budget-badge">-$85</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Work</md-table-cell>
-              <md-table-cell>$50</md-table-cell>
-              <md-table-cell>$30</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$20</span></md-table-cell>
-            </md-table-row>
-          </md-table>
-        </div>
-
-        <button class="accordion">
-          <span><md-icon>drive_eta</md-icon>&nbsp;&nbsp;Transportation</span>
-          <div class="md-toolbar-section-end">
-          </div>
-        </button>
-        <div class="panel">
-          <md-table class="food-table">
-            <md-table-row>
-              <md-table-head>Category</md-table-head>
-              <md-table-head>Budgeted</md-table-head>
-              <md-table-head>Spent</md-table-head>
-              <md-table-head>Remaining</md-table-head>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Family</md-table-cell>
-              <md-table-cell>$100</md-table-cell>
-              <md-table-cell>$185</md-table-cell>
-              <md-table-cell><span class="budget-badge over-budget-badge">-$85</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Work</md-table-cell>
-              <md-table-cell>$50</md-table-cell>
-              <md-table-cell>$30</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$20</span></md-table-cell>
-            </md-table-row>
-          </md-table>
-        </div>
-
-        <button class="accordion">
-          <span><md-icon>drive_eta</md-icon>&nbsp;&nbsp;Transportation</span>
-          <div class="md-toolbar-section-end">
-          </div>
-        </button>
-        <div class="panel">
-          <md-table class="food-table">
-            <md-table-row>
-              <md-table-head>Category</md-table-head>
-              <md-table-head>Budgeted</md-table-head>
-              <md-table-head>Spent</md-table-head>
-              <md-table-head>Remaining</md-table-head>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Groceries</md-table-cell>
-              <md-table-cell>$400</md-table-cell>
-              <md-table-cell>$240</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$160</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Family</md-table-cell>
-              <md-table-cell>$100</md-table-cell>
-              <md-table-cell>$185</md-table-cell>
-              <md-table-cell><span class="budget-badge over-budget-badge">-$85</span></md-table-cell>
-            </md-table-row>
-
-            <md-table-row>
-              <md-table-cell>Eating Out - Work</md-table-cell>
-              <md-table-cell>$50</md-table-cell>
-              <md-table-cell>$30</md-table-cell>
-              <md-table-cell><span class="budget-badge under-budget-badge">$20</span></md-table-cell>
-            </md-table-row>
-          </md-table>
-        </div>
       </md-app-content>
     </md-app>
   </div>
@@ -338,43 +193,47 @@
     background-color: red;
   }
 
-  /* accordian styling */
-  .category-title {
-    margin: 0;
-    font-weight: normal;
+  /* material table styling */
+  .mat-table {
+    display: block;
   }
 
-  .collapsed {
-    height: 0px;
+  .mat-row,
+  .mat-header-row {
+    display: flex;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: lightgray;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 24px;
+  }
+
+  .mat-header-row {
+    padding-right:48px;
+    padding-left:35px;
+  }
+
+  .mat-row {
+    padding-left:17px;
+    padding-right:32px;
+  }
+
+  .category-group-row {
+    display: flex;
+    padding-left:10px;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    flex: 1;
     overflow: hidden;
-    transition: height 0.25s ease-in;
+    word-wrap: normal;
+    /*border:1px solid black;*/
   }
 
-  .accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-    padding: 10px;
-  }
-
-  .active,
-  .accordion:hover {
-    background-color: #ccc;
-  }
-
-  .panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: auto;
-    transition: max-height 0.2s ease-out;
-    /*max-height: 0;*/
-    /*overflow: hidden;*/
+  .expansion-panel__header {
+    background-color: whitesmoke;
   }
 </style>
 
