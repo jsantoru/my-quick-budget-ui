@@ -90,62 +90,7 @@
 
       <md-app-content>
         <router-view></router-view>
-        <h2>Budget</h2>
-        <p>Totally sweet budget subtext and options</p>
 
-        <div class="mat-table">
-          <div class="mat-header-row">
-            <div class="mat-header-cell">category</div>
-            <div class="mat-header-cell">budgeted</div>
-            <div class="mat-header-cell">spent</div>
-            <div class="mat-header-cell">remaining</div>
-          </div>
-        </div>
-        <v-expansion-panel>
-          <v-expansion-panel-content :value="true" class="grey lighten-3">
-            <div slot="header">
-              <div class="category-group-row">
-                <div class="mat-cell">Housing</div>
-                <div class="mat-cell">$1000</div>
-                <div class="mat-cell">$1000</div>
-                <div class="mat-cell">$0</div>
-              </div>
-            </div>
-            <v-card class="white">
-              <v-card-text>
-                <div class="mat-row">
-                  <div class="mat-cell">rent</div>
-                  <div class="mat-cell">$1000</div>
-                  <div class="mat-cell">$1000</div>
-                  <div class="mat-cell">$0</div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-        <v-expansion-panel>
-          <v-expansion-panel-content :value="true" class="grey lighten-3">
-            <div slot="header">
-              <div class="category-group-row">
-                <div class="mat-cell">Food</div>
-                <div class="mat-cell">$10</div>
-                <div class="mat-cell">$2</div>
-                <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
-
-              </div>
-            </div>
-            <v-card class="white">
-              <v-card-text>
-                <div class="mat-row">
-                  <div class="mat-cell">eating out</div>
-                  <div class="mat-cell">$10</div>
-                  <div class="mat-cell">$2</div>
-                  <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
       </md-app-content>
     </md-app>
   </div>

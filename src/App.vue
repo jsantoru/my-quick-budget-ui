@@ -5,11 +5,13 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue';
 import Reports from './components/Reports.vue';
+import Budget from './components/Budget.vue';
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
+    Budget,
     Reports
   }
 }

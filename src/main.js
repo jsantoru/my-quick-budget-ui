@@ -12,11 +12,13 @@ import 'vue-material/dist/theme/default.css';
 
 import HelloWorld from './components/HelloWorld.vue';
 import Reports from './components/Reports.vue';
+import Budget from './components/Budget.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-  {path: '', component: HelloWorld},
+  {path: '', component: Budget},
+  {path: '/budget', component: Budget},
   {path: '/reports', component: Reports}
 ];
 const router = new VueRouter({routes});
