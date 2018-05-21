@@ -40,10 +40,12 @@
 </template>
 
 <style scoped>
+  /* allow the content to take up the entire viewport height*/
   .md-app {
     height: 100vh;
   }
 
+  /* set the width of the drawer */
   .md-drawer {
     width: 230px;
   }
@@ -54,28 +56,6 @@
   }
   .md-drawer {
     border-right: 1px solid lightgray;
-  }
-
-  .over-budget-badge {
-    background-color: red;
-  }
-
-  .under-budget-badge {
-    background-color: green;
-  }
-
-  .budget-badge {
-    color: white;
-    padding: 4px;
-    border-radius: 10px;
-  }
-
-  .cash-badge {
-    background-color: green;
-  }
-
-  .credit-card-badge {
-    background-color: red;
   }
 </style>
 

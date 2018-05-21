@@ -21,16 +21,24 @@
             <div class="mat-cell">$0</div>
           </div>
         </div>
-        <v-card class="white">
-          <v-card-text>
-            <div class="mat-row">
-              <div class="mat-cell">rent</div>
-              <div class="mat-cell">$1000</div>
-              <div class="mat-cell">$1000</div>
-              <div class="mat-cell">$0</div>
-            </div>
-          </v-card-text>
-        </v-card>
+        <div class="mat-row">
+          <div class="mat-cell">rent</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$0</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">rent</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$0</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">rent</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$1000</div>
+          <div class="mat-cell">$0</div>
+        </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <v-expansion-panel>
@@ -41,19 +49,14 @@
             <div class="mat-cell">$10</div>
             <div class="mat-cell">$2</div>
             <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
-
           </div>
         </div>
-        <v-card class="white">
-          <v-card-text>
-            <div class="mat-row">
-              <div class="mat-cell">eating out</div>
-              <div class="mat-cell">$10</div>
-              <div class="mat-cell">$2</div>
-              <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
-            </div>
-          </v-card-text>
-        </v-card>
+        <div class="mat-row">
+          <div class="mat-cell">eating out</div>
+          <div class="mat-cell">$10</div>
+          <div class="mat-cell">$2</div>
+          <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
+        </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
   </div>
@@ -98,19 +101,17 @@
     padding: 0 24px;
   }
 
-  .mat-header-row {
-    padding-right:48px;
-    padding-left:35px;
+  .mat-row {
+    background-color: white;
   }
 
-  .mat-row {
-    padding-left:17px;
-    padding-right:32px;
+  .mat-row,
+  .mat-header-row {
+    padding-right:48px;
   }
 
   .category-group-row {
     display: flex;
-    padding-left:10px;
   }
 
   .mat-cell,
