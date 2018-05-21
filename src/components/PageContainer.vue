@@ -5,7 +5,7 @@
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">
           <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-            <md-icon>menu</md-icon>
+            <md-icon>account_balance</md-icon>
           </md-button>
           <div class="md-toolbar-section-start">
             <span class="md-title">My Quick Budget</span>
