@@ -95,6 +95,10 @@
     padding-right:48px;
   }
 
+  .mat-header-row {
+    border-top: 1px solid lightgray;
+  }
+
   .category-group-row {
     display: flex;
   }
