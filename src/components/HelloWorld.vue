@@ -1,6 +1,7 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
+      <!-- toolbar -->
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">
           <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
@@ -25,72 +26,14 @@
         </div>
       </md-app-toolbar>
 
+      <!-- drawer/menu -->
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
-        <md-toolbar class="md-transparent md-dense">
-          <h5 class="md-title" style="flex: 1">Accounts</h5>
-
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
-              <md-icon><!--keyboard_arrow_left-->account_balance</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-toolbar class="md-dense" md-elevation="0">
-          <md-icon>attach_money</md-icon>
-          <span>&nbsp;&nbsp;Cash </span>
-
-          <div class="md-toolbar-section-end">
-            <md-badge class="md-square" md-content="$1526" style="margin-right:20px;background-color:green;"></md-badge>
-          </div>
-        </md-toolbar>
-
-        <md-list>
-          <md-list-item>
-            <span class="md-list-item-text">&nbsp;&nbsp;M&T Checking</span>
-            <md-badge class="md-square cash-badge" md-content="$1000" style="background-color:green;"></md-badge>
-          </md-list-item>
-
-          <md-list-item>
-            <span class="md-list-item-text">&nbsp;&nbsp;Key Checking</span>
-            <md-badge class="cash-badge md-square" md-content="$526" style="background-color:green;"></md-badge>
-          </md-list-item>
-
-          <md-list-item>
-            <md-button class="md-icon-button md-dense">
-              <md-icon>add_circle</md-icon>
-            </md-button>
-            <span class="md-list-item-text">Add Cash Account</span>
-          </md-list-item>
-        </md-list>
-
-        <md-toolbar class="md-dense" md-elevation="0">
-          <md-icon>credit_card</md-icon>
-          <span>&nbsp;&nbsp;Credit Cards</span>
-          <md-badge class="md-square credit-card-badge" md-content="$625" style="margin-right:20px;" />
-          <div class="md-toolbar-section-end">
-          </div>
-        </md-toolbar>
-
-        <md-list>
-          <md-list-item>
-            <span class="md-list-item-text">&nbsp;&nbsp;Chase Sapphire</span>
-            <md-badge class="md-square credit-card-badge" md-content="$625" />
-          </md-list-item>
-
-          <md-list-item>
-            <md-button class="md-icon-button md-dense">
-              <md-icon>add_circle</md-icon>
-            </md-button>
-            <span class="md-list-item-text">Add Credit Card</span>
-          </md-list-item>
-        </md-list>
-
+        <Drawer v-on:hide-drawer="toggleMenu"></Drawer>
       </md-app-drawer>
 
+      <!-- content -->
       <md-app-content>
         <router-view></router-view>
-
       </md-app-content>
     </md-app>
   </div>
@@ -99,12 +42,10 @@
 <style scoped>
   .md-app {
     height: 100vh;
-    /*border: 1px solid rgba(#000, 0.12);*/
   }
 
   .md-drawer {
     width: 230px;
-    /*max-width: calc(100vw - 125px);*/
   }
 
   /* fix the border on the sidebar */
@@ -136,54 +77,16 @@
   .credit-card-badge {
     background-color: red;
   }
-
-  /* material table styling */
-  .mat-table {
-    display: block;
-  }
-
-  .mat-row,
-  .mat-header-row {
-    display: flex;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: lightgray;
-    align-items: center;
-    min-height: 48px;
-    padding: 0 24px;
-  }
-
-  .mat-header-row {
-    padding-right:48px;
-    padding-left:35px;
-  }
-
-  .mat-row {
-    padding-left:17px;
-    padding-right:32px;
-  }
-
-  .category-group-row {
-    display: flex;
-    padding-left:10px;
-  }
-
-  .mat-cell,
-  .mat-header-cell {
-    flex: 1;
-    overflow: hidden;
-    word-wrap: normal;
-    /*border:1px solid black;*/
-  }
-
-  .expansion-panel__header {
-    background-color: whitesmoke;
-  }
 </style>
 
 <script>
+  import Drawer from './Drawer.vue';
+
   export default {
     name: "HelloWorld",
+    components: {
+      "Drawer": Drawer
+    },
     data: () => ({
       menuVisible: true,
       isCollapsed: false
