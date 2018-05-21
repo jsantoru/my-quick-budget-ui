@@ -19,69 +19,17 @@
         <div slot="header">
           <div class="category-group-row">
             <div class="mat-cell">{{categoryGroup.name}}</div>
-            <div class="mat-cell">$1000</div>
-            <div class="mat-cell">$1000</div>
-            <div class="mat-cell">$0</div>
+            <div class="mat-cell">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
+            <div class="mat-cell">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
+            <div class="mat-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
+
           </div>
         </div>
         <div v-for="category in categoryGroup.categories" class="mat-row">
           <div class="mat-cell">{{category.name}}</div>
           <div class="mat-cell">{{category.budgeted | currency}}</div>
-
-
-
           <div class="mat-cell">{{category.spent | currency}}</div>
           <div class="mat-cell">{{(category.budgeted - category.spent) | currency}}</div>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-
-    <!-- static -->
-    <v-expansion-panel>
-      <v-expansion-panel-content :value="true" class="grey lighten-3">
-        <div slot="header">
-          <div class="category-group-row">
-            <div class="mat-cell">Housing</div>
-            <div class="mat-cell">$1000</div>
-            <div class="mat-cell">$1000</div>
-            <div class="mat-cell">$0</div>
-          </div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">rent</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$0</div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">rent</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$0</div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">rent</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$1000</div>
-          <div class="mat-cell">$0</div>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-    <v-expansion-panel>
-      <v-expansion-panel-content :value="true" class="grey lighten-3">
-        <div slot="header">
-          <div class="category-group-row">
-            <div class="mat-cell">Food</div>
-            <div class="mat-cell">$10</div>
-            <div class="mat-cell">$2</div>
-            <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
-          </div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">eating out</div>
-          <div class="mat-cell">$10</div>
-          <div class="mat-cell">$2</div>
-          <div class="mat-cell"><span class="budget-badge under-budget-badge">$8.00</span></div>
         </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -172,6 +120,23 @@
       budget: ""
     }),
     methods: {
+      getCategoryGroupBudgeted(categoryGroup) {
+        let total = 0;
+        for (const category of categoryGroup.categories) {
+          total += category.budgeted;
+        }
+        return total;
+      },
+      getCategoryGroupSpent(categoryGroup) {
+        let total = 0;
+        for (const category of categoryGroup.categories) {
+          total += category.spent;
+        }
+        return total;
+      },
+      getCategoryGroupRemaining(categoryGroup) {
+        return this.getCategoryGroupBudgeted(categoryGroup) - this.getCategoryGroupSpent(categoryGroup);
+      },
       retrieveBudget() {
         console.log("retrieve");
 
