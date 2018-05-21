@@ -12,6 +12,31 @@
         <div class="mat-header-cell">REMAINING</div>
       </div>
     </div>
+
+    <!-- dynamic -->
+    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" >
+      <v-expansion-panel-content :value="true" class="grey lighten-3">
+        <div slot="header">
+          <div class="category-group-row">
+            <div class="mat-cell">{{categoryGroup.name}}</div>
+            <div class="mat-cell">$1000</div>
+            <div class="mat-cell">$1000</div>
+            <div class="mat-cell">$0</div>
+          </div>
+        </div>
+        <div v-for="category in categoryGroup.categories" class="mat-row">
+          <div class="mat-cell">{{category.name}}</div>
+          <div class="mat-cell">{{category.budgeted | currency}}</div>
+
+
+
+          <div class="mat-cell">{{category.spent | currency}}</div>
+          <div class="mat-cell">{{(category.budgeted - category.spent) | currency}}</div>
+        </div>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+    <!-- static -->
     <v-expansion-panel>
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
@@ -139,11 +164,72 @@
 </style>
 
 <script>
+  import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
   export default {
+    components: {VExpansionPanel},
     name: "Budget",
     data: () => ({
+      budget: ""
     }),
     methods: {
+      retrieveBudget() {
+        console.log("retrieve");
+
+        const budget = {
+          categoryGroups: [
+            {
+              name: "Food",
+              categories: [
+                {name: "Groceries", budgeted: 400, spent: 327.37},
+                {name: "Family Eating Out", budgeted: 175, spent: 158.99},
+                {name: "Work Eating Out", budgeted: 80, spent: 77.47},
+              ]
+            },
+            {
+              name: "Housing",
+              categories: [
+                {name: "Mortgage", budgeted: 1214.80, spent: 1214.80},
+                {name: "Additional Mortgage", budgeted: 0, spent: 0},
+                {name: "Work Eating Out", budgeted: 80, spent: 77.47},
+              ]
+            },
+            {
+              name: "Cars",
+              categories: [
+                {name: "Car Loan", budgeted: 307.55, spent: 0},
+                {name: "Gas", budgeted: 125, spent: 95.42},
+                {name: "Insurance", budgeted: 125, spent: 120.44},
+                {name: "Maintenance", budgeted: 25, spent: 0},
+              ]
+            },
+            {
+              name: "Bills",
+              categories: [
+                {name: "Electric", budgeted: 200, spent: 182.61},
+                {name: "Cellphone", budgeted: 60, spent: 53.36},
+                {name: "Internet", budgeted: 64.99, spent: 64.99},
+              ]
+            },
+            {
+              name: "Subscriptions/Memberships",
+              categories: [
+                {name: "YouTube TV", budgeted: 40, spent: 40},
+                {name: "Spotify", budgeted: 10.98, spent: 10.98},
+                {name: "Netflix", budgeted: 13.99, spent: 13.99},
+                {name: "Gym", budgeted: 29.98, spent: 29.98},
+                {name: "YNAB", budgeted: 5, spent: 0},
+                {name: "Amazon Prime", budgeted: 10, spent: 0},
+                {name: "Museum of Play", budgeted: 15, spent: 0},
+              ]
+            },
+          ]
+        };
+
+        this.budget = budget;
+      }
+    },
+    created() {
+      this.retrieveBudget();
     }
   };
 </script>

@@ -14,10 +14,14 @@ import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
 
+// filters
+import Vue2Filters from 'vue2-filters';
+
 // use
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 Vue.use(VueMaterial);
+Vue.use(Vue2Filters);
 
 Vue.config.productionTip = false;
 
