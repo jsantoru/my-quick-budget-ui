@@ -18,8 +18,10 @@ export default {
 </script>
 
 <style>
-#app {
+  html {
+    overflow: hidden;
+  }
+  #app {
 
-}
-
+  }
 </style>

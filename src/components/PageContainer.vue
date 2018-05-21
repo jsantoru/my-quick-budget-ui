@@ -57,6 +57,11 @@
   .md-drawer {
     border-right: 1px solid lightgray;
   }
+
+  .md-content {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 </style>
 
 <script>
