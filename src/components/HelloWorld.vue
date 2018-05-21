@@ -16,9 +16,9 @@
           </div>
         </div>
         <div class="md-toolbar-row">
-          <md-tabs class="md-primary"> <!-- md-sync-route -->
-            <md-tab id="tab-home" md-label="Budget"></md-tab> <!-- to="/component"-->
-            <md-tab id="tab-pages" md-label="Reports"></md-tab>
+          <md-tabs class="md-primary" md-sync-route>
+            <md-tab id="tab-home" md-label="Budget" to="/"></md-tab>
+            <md-tab id="tab-pages" md-label="Reports" to="/reports"></md-tab>
             <md-tab id="tab-posts" md-label="Account"></md-tab>
             <md-tab id="tab-favorites" md-label="Setup"></md-tab>
           </md-tabs>
@@ -89,7 +89,7 @@
       </md-app-drawer>
 
       <md-app-content>
-
+        <router-view></router-view>
         <h2>Budget</h2>
         <p>Totally sweet budget subtext and options</p>
 
