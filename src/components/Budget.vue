@@ -1,8 +1,9 @@
 <template>
   <div class="budget-container">
-    <h2>Budget</h2>
-    <p>Totally sweet budget subtext and options</p>
-
+    <div class="heading">
+      <h2>Budget</h2>
+      <p>Totally sweet budget subtext and options</p>
+    </div>
     <div class="mat-table">
       <div class="mat-header-row">
         <div class="mat-header-cell">category</div>
@@ -63,6 +64,10 @@
 </template>
 
 <style scoped>
+  .heading {
+    text-align: center;
+  }
+
   .over-budget-badge {
     background-color: red;
   }
@@ -97,7 +102,7 @@
     border-bottom-style: solid;
     border-bottom-color: lightgray;
     align-items: center;
-    min-height: 48px;
+    min-height: 34px;
     padding: 0 24px;
   }
 
