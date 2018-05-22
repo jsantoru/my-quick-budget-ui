@@ -1,13 +1,14 @@
 <template>
   <div>
     <md-field>
-      <label v-if="labelText">prevValue: {{labelText}}</label>
-
+      <label v-if="prevValue">{{prevValue}}</label>
     <md-input
         v-model="displayValue"
         placeholder="Enter Value"
-        @blur="isInputActive = false;"
-        @focus="isInputActive = true;">
+        @blur="isInputActive = false; prevValue = null"
+        @focus="isInputActive = true; prevValue = getPreviousDisplayValue()"
+        @keyup.native.enter="onEnter()"
+        @focus.native="$event.target.select(); ">
     </md-input>
     </md-field>
   </div>
@@ -16,6 +17,10 @@
 <style scoped>
   input {
     text-align: right;
+    max-width: 150px;
+
+    /* can't seem to override font-size */
+    font-size: 10px;
   }
 
   /* remove bottom line when not being edited */
@@ -40,6 +45,7 @@
     props: ["value"],
     data: function () {
       return {
+        prevValue: "",
         isInputActive: false
       }
     },
@@ -54,6 +60,9 @@
             return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
           }
         },
+
+        // TODO: define a WIP value and then send event to update value only on "ENTER" or "blur"
+        // TODO: do not send an update on "ESC"
         set: function (modifiedValue) {
           // Recalculate value after ignoring "$" and "," in user input
           let newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""))
@@ -63,8 +72,23 @@
           }
           // Note: we cannot set this.value as it is a "prop". It needs to be passed to parent component
           // $emit the event so that parent component gets it
+
           this.$emit('input', newValue)
         }
+      }
+    },
+    methods: {
+      onEnter() {
+        console.log("ENTER");
+        this.isInputActive = false;
+
+        // TODO: remove focus
+        // TODO: focus on something else??
+
+      },
+      getPreviousDisplayValue() {
+        return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+
       }
     }
   }
