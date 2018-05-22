@@ -109,7 +109,11 @@
   .mat-row,
   .mat-header-row,
   .category-group-row {
-    font-size: 12px;
+    font-size: 16px;
+  }
+
+  .mat-header-row {
+    font-size: 14px;
   }
 
   .mat-cell,
