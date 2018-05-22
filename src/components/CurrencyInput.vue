@@ -7,8 +7,8 @@
         placeholder="Enter Value"
         @blur="isInputActive = false; prevValue = null"
         @focus="isInputActive = true; prevValue = getPreviousDisplayValue()"
-        @keyup.native.enter="onEnter()"
-        @focus.native="$event.target.select(); ">
+        @keyup.native.enter="onEnter()">
+        <!-- @focus.native="$event.target.select();"> selectAll - works, but then is immediately not selected because the value changes-->
     </md-input>
     </md-field>
   </div>
@@ -20,7 +20,7 @@
     max-width: 150px;
 
     /* can't seem to override font-size */
-    font-size: 10px;
+    font-size: 12px;
   }
 
   /* remove bottom line when not being edited */
@@ -33,7 +33,6 @@
     padding: 0;
     margin: 0;
     min-height: 0;
-    font-size: 1em;
   }
 
 </style>

@@ -32,7 +32,9 @@
           <div class="mat-cell currency-col">
             <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
           </div>
-          <div class="mat-cell currency-col">{{category.spent | currency}}</div>
+          <div class="mat-cell currency-col">
+            <currency-input v-model="category.spent"></currency-input>
+          </div>
           <div class="mat-cell currency-col last-col">{{(category.budgeted - category.spent) | currency}}</div>
         </div>
       </v-expansion-panel-content>
