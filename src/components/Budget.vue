@@ -25,12 +25,13 @@
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col last-col">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
-
           </div>
         </div>
         <div v-for="category in categoryGroup.categories" class="mat-row">
           <div class="mat-cell category-col">{{category.name}}</div>
-          <div class="mat-cell currency-col">{{category.budgeted | currency}}</div>
+          <div class="mat-cell currency-col">
+            <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
+          </div>
           <div class="mat-cell currency-col">{{category.spent | currency}}</div>
           <div class="mat-cell currency-col last-col">{{(category.budgeted - category.spent) | currency}}</div>
         </div>
@@ -141,11 +142,15 @@
 
 <script>
   import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
+  import VueNumeric from 'vue-numeric';
+  import CurrencyInput from './CurrencyInput.vue';
+
   export default {
-    components: {VExpansionPanel},
+    components: {VExpansionPanel, VueNumeric, CurrencyInput},
     name: "Budget",
     data: () => ({
-      budget: ""
+      budget: "",
+      labelText:""
     }),
     methods: {
       getCategoryGroupBudgeted(categoryGroup) {
