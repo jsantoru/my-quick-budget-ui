@@ -1,13 +1,8 @@
 <template>
   <div class="drawer-container">
     <md-toolbar class="md-transparent md-dense">
+      <md-icon>account_balance</md-icon>
       <h5 class="md-title" style="flex: 1">Accounts</h5>
-
-      <div class="md-toolbar-section-end">
-        <md-button class="md-icon-button md-dense" @click="hide">
-          <md-icon>keyboard_arrow_left</md-icon>
-        </md-button>
-      </div>
     </md-toolbar>
 
     <md-toolbar class="md-dense" md-elevation="0">
