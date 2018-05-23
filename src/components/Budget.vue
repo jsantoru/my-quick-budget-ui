@@ -35,7 +35,12 @@
           <div class="mat-cell currency-col">
             <currency-input v-model="category.spent"></currency-input>
           </div>
-          <div class="mat-cell currency-col last-col">{{(category.budgeted - category.spent) | currency}}</div>
+          <div class="mat-cell currency-col last-col">
+            <md-chip style="font-size:16px;"
+                :class="{'md-accent': getCategoryRemaining(category) < 0, 'md-primary': getCategoryRemaining(category) > 0}"
+                md-clickable>{{getCategoryRemaining(category) | currency}}
+            </md-chip>
+          </div>
         </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -172,6 +177,9 @@
       getCategoryGroupRemaining(categoryGroup) {
         return this.getCategoryGroupBudgeted(categoryGroup) - this.getCategoryGroupSpent(categoryGroup);
       },
+      getCategoryRemaining(category) {
+        return category.budgeted - category.spent;
+      },
       retrieveBudget() {
         console.log("retrieve");
 
@@ -181,7 +189,7 @@
               name: "Food",
               mdicon: "fastfood",
               categories: [
-                {name: "Groceries", budgeted: 400, spent: 327.37},
+                {name: "Groceries", budgeted: 300, spent: 327.37},
                 {name: "Family Eating Out", budgeted: 175, spent: 158.99},
                 {name: "Work Eating Out", budgeted: 80, spent: 77.47},
               ]

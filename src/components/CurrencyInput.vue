@@ -3,7 +3,7 @@
     <md-field>
       <!-- TODO: investigate a good use for this field (maybe the ideal budgeted value? how much remaining? how much overspent by?) -->
       <!--<label v-if="prevValue">{{prevValue}}</label>-->
-    <md-input
+    <md-input ref="input"
         v-model="displayValue"
         placeholder="Enter Value"
         @blur="isInputActive = false; prevValue = null"
@@ -86,10 +86,17 @@
         // TODO: focus on something else??
 
       },
+
       getPreviousDisplayValue() {
         return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
 
       }
+    },
+
+    mounted: function() {
+      // override the vue-material font-size for inputs
+      // overriding with classes in the template didn't work, so override it after it's been mounted
+      this.$refs.input.$el.style.fontSize = "14px";
     }
   }
 </script>
