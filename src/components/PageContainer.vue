@@ -24,14 +24,17 @@
           </div>
         </div>
         <div class="md-toolbar-row">
-          <md-tabs class="md-primary" md-sync-route>
-            <md-tab id="tab-budget" md-label="Budget" to="/"></md-tab>
-            <md-tab id="tab-transactions" md-label="Transactions" to="/transactions"></md-tab>
-            <md-tab id="tab-reports" md-label="Reports" to="/reports"></md-tab>
-            <md-tab id="tab-setup" md-label="Setup" to="/setup"></md-tab>
-          </md-tabs>
+
           <div class="md-toolbar-section-start">
+            <md-tabs class="md-primary" md-sync-route>
+              <md-tab id="tab-budget" md-label="Budget" to="/"></md-tab>
+              <md-tab id="tab-transactions" md-label="Transactions" to="/transactions"></md-tab>
+              <md-tab id="tab-reports" md-label="Reports" to="/reports"></md-tab>
+              <md-tab id="tab-setup" md-label="Setup" to="/setup"></md-tab>
+            </md-tabs>
           </div>
+          <!-- TODO: center -->
+          <span>...</span>
           <div class="md-toolbar-section-end">
             <!-- TODO: move button to sticky bottom right... how difficult is this? -->
             <md-button class="md-icon-button md-raised md-accent" title="add transaction">
