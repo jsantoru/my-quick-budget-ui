@@ -1,20 +1,29 @@
 <template>
   <div class="budget-container">
     <div class="heading">
-      <div class="mat-table" style="width:50%">
-        <div class="mat-header-row summary-header">
-          <div class="mat-header-cell currency-col">BUDGETED</div>
-          <div class="mat-header-cell currency-col">SPENT</div>
-          <div class="mat-header-cell currency-col">BUDGET REMAINING</div>
-          <div class="mat-header-cell currency-col">DAYS REMAINING</div>
+      <div class="heading-left">
+        <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
+      </div>
+      <div class="heading-center">
 
+        <div class="mat-table">
+          <div class="mat-header-row summary-header">
+            <div class="mat-header-cell currency-col">BUDGETED</div>
+            <div class="mat-header-cell currency-col">SPENT</div>
+            <div class="mat-header-cell currency-col">BUDGET REMAINING</div>
+            <div class="mat-header-cell currency-col">DAYS REMAINING</div>
+
+          </div>
+          <div class="mat-row">
+            <div class="mat-cell currency-col">{{getTotalBudgeted() | currency}}</div>
+            <div class="mat-cell currency-col">{{getTotalSpent() | currency}}</div>
+            <div class="mat-cell currency-col">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
+            <div class="mat-cell currency-col">{{getMonthDaysLeft()}}</div>
+          </div>
         </div>
-        <div class="mat-row">
-          <div class="mat-cell currency-col">{{getTotalBudgeted() | currency}}</div>
-          <div class="mat-cell currency-col">{{getTotalSpent() | currency}}</div>
-          <div class="mat-cell currency-col">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
-          <div class="mat-cell currency-col">10</div>
-        </div>
+      </div>
+      <div class="heading-right">
+
       </div>
     </div>
 
@@ -66,11 +75,21 @@
 
 <style scoped>
   .heading {
-    text-align: center;
+    box-shadow: 0 3px 2px -2px gray;
+
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+  }
+
+  .heading-center {
+    flex: 2;
+  }
+
+  .heading-left,
+  .heading-right {
+    flex: 1;
   }
 
   .summary-header {
@@ -195,6 +214,10 @@
       labelText:""
     }),
     methods: {
+      getMonthDaysLeft(){
+        const date = new Date();
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
+      },
       getTotalBudgeted() {
         let total = 0;
         for (const categoryGroup of this.budget.categoryGroups) {
