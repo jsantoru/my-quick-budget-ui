@@ -10,7 +10,7 @@
           <div class="mat-header-row summary-header">
             <div class="mat-header-cell">BUDGETED</div>
             <div class="mat-header-cell">SPENT</div>
-            <div class="mat-header-cell">BUDGET REMAINING</div>
+            <div class="mat-header-cell">REMAINING</div>
             <div class="mat-header-cell">DAYS REMAINING</div>
           </div>
           <div class="mat-row summary-row">
