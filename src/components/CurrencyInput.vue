@@ -1,7 +1,8 @@
 <template>
   <div>
     <md-field>
-      <label v-if="prevValue">{{prevValue}}</label>
+      <!-- TODO: investigate a good use for this field (maybe the ideal budgeted value? how much remaining? how much overspent by?) -->
+      <!--<label v-if="prevValue">{{prevValue}}</label>-->
     <md-input
         v-model="displayValue"
         placeholder="Enter Value"
