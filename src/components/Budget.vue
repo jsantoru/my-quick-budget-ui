@@ -301,7 +301,7 @@
             },
             {
               name: "Subscriptions",
-              mdicon: "360",
+              mdicon: "repeat",
               categories: [
                 {name: "YouTube TV", budgeted: 40, spent: 40},
                 {name: "Spotify", budgeted: 10.98, spent: 10.98},
