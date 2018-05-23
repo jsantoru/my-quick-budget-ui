@@ -24,7 +24,9 @@
               <span class="category-group-name">{{categoryGroup.name}}</span></div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
-            <div class="mat-cell currency-col last-col">{{getCategoryGroupRemaining(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col last-col">
+              <span class="category-group-remaining-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</span>
+            </div>
           </div>
         </div>
         <div v-for="category in categoryGroup.categories" class="mat-row">
@@ -36,10 +38,10 @@
             <currency-input v-model="category.spent"></currency-input>
           </div>
           <div class="mat-cell currency-col last-col">
-            <md-chip style="font-size:16px;"
-                :class="{'md-accent': getCategoryRemaining(category) < 0, 'md-primary': getCategoryRemaining(category) > 0}"
-                md-clickable>{{getCategoryRemaining(category) | currency}}
-            </md-chip>
+            <span class="budget-badge"
+                :class="{'under-budget-badge': getCategoryRemaining(category) > 0, 'over-budget-badge': getCategoryRemaining(category) < 0, 'on-budget-badge': getCategoryRemaining(category) === 0}">
+              <span class="budget-badge-value">{{getCategoryRemaining(category) | currency}}</span>
+            </span>
           </div>
         </div>
       </v-expansion-panel-content>
@@ -56,26 +58,32 @@
     padding-left: 5px;
   }
 
+  /* badge */
   .over-budget-badge {
-    background-color: red;
+    background-color: darkred;
   }
 
   .under-budget-badge {
     background-color: green;
   }
 
+  .on-budget-badge {
+    background-color: darkgray;
+  }
+
   .budget-badge {
+    border-radius: 20px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .budget-badge-value {
     color: white;
-    padding: 4px;
-    border-radius: 10px;
-  }
-
-  .cash-badge {
-    background-color: green;
-  }
-
-  .credit-card-badge {
-    background-color: red;
+    padding-left:8px;
+    padding-right:8px;
   }
 
   /* material table styling */
@@ -109,13 +117,12 @@
     display: flex;
   }
 
-  .mat-row,
-  .mat-header-row,
-  .category-group-row {
-    font-size: 16px;
+  .mat-header-row {
+    font-size: 12px;
   }
 
-  .mat-header-row {
+  .mat-row,
+  .category-group-row {
     font-size: 14px;
   }
 
@@ -137,6 +144,11 @@
 
   .last-col {
     padding-right:20px;
+  }
+
+  .category-group-remaining-cell {
+    /* additional 8px for the badge padding so the group remaining amount stays aligned */
+    padding-right: 8px;
   }
 
   .border-top {
