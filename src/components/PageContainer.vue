@@ -12,19 +12,24 @@
           </div>
           <!-- center of toolbar -->
           <!-- TODO: logo -->
-          <span>...</span>
+          <span>May 2018</span>
           <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-accent">
-              <md-icon>thumb_up</md-icon>
-            </md-button>
             <md-button class="md-icon-button">
-              <md-icon>person</md-icon>
+              <md-icon>calendar_today</md-icon>
             </md-button>
-
+            <md-badge md-content="3">
+              <md-button class="md-icon-button">
+                <md-icon>notifications</md-icon>
+              </md-button>
+            </md-badge>
+            <md-button class="md-icon-button avatar">
+              <md-avatar>
+                <img src="../assets/joe-avatar.png" alt="Avatar">
+              </md-avatar>
+            </md-button>
           </div>
         </div>
         <div class="md-toolbar-row">
-
           <div class="md-toolbar-section-start">
             <md-tabs class="md-primary" md-sync-route>
               <md-tab id="tab-budget" md-label="Budget" to="/"></md-tab>
@@ -79,6 +84,10 @@
   .md-content {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .avatar {
+    margin-left: 15px;
   }
 </style>
 
