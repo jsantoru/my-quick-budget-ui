@@ -14,7 +14,7 @@
     </div>
 
     <!-- dynamic -->
-    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" >
+    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" class="border-top">
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
@@ -81,9 +81,7 @@
   .mat-row,
   .mat-header-row {
     display: flex;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: lightgray;
+    border-top: 1px solid lightgray;
     align-items: center;
     min-height: 34px;
     padding: 0 24px;
@@ -121,7 +119,6 @@
     flex: 1;
     overflow: hidden;
     word-wrap: normal;
-    /*border:1px solid black;*/
   }
 
   .category-col {
@@ -129,7 +126,6 @@
   }
 
   .currency-col {
-    /*border: 1px solid black;*/
     display: flex;
     justify-content: flex-end;
   }
@@ -138,8 +134,8 @@
     padding-right:20px;
   }
 
-  .expansion-panel__header {
-    background-color: whitesmoke;
+  .border-top {
+    border-top: 1px solid lightgray;
   }
 
   /** TODO: hide */
@@ -216,7 +212,7 @@
               ]
             },
             {
-              name: "Subscriptions/Memberships",
+              name: "Subscriptions",
               categories: [
                 {name: "YouTube TV", budgeted: 40, spent: 40},
                 {name: "Spotify", budgeted: 10.98, spent: 10.98},
