@@ -23,9 +23,6 @@
             <md-button class="md-icon-button md-raised md-accent" title="add transaction">
               <md-icon>add</md-icon>
             </md-button>
-            <md-button class="md-icon-button">
-              <md-icon>calendar_today</md-icon>
-            </md-button>
             <md-badge md-content="3">
               <md-button class="md-icon-button">
                 <md-icon>notifications</md-icon>
