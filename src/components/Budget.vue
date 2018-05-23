@@ -1,9 +1,24 @@
 <template>
   <div class="budget-container">
     <div class="heading">
-      <h2>Budget</h2>
-      <p>Totally sweet budget subtext and options</p>
+      <div class="mat-table" style="width:50%">
+        <div class="mat-header-row summary-header">
+          <div class="mat-header-cell currency-col">BUDGETED</div>
+          <div class="mat-header-cell currency-col">SPENT</div>
+          <div class="mat-header-cell currency-col">BUDGET REMAINING</div>
+          <div class="mat-header-cell currency-col">DAYS REMAINING</div>
+
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell currency-col">{{getTotalBudgeted() | currency}}</div>
+          <div class="mat-cell currency-col">{{getTotalSpent() | currency}}</div>
+          <div class="mat-cell currency-col">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
+          <div class="mat-cell currency-col">10</div>
+        </div>
+      </div>
     </div>
+
+    <!-- begin main table -->
     <div class="mat-table">
       <div class="mat-header-row">
         <div class="mat-header-cell category-col">CATEGORY</div>
@@ -52,6 +67,14 @@
 <style scoped>
   .heading {
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .summary-header {
+    background-color: whitesmoke;
   }
 
   .category-group-name {
@@ -172,6 +195,24 @@
       labelText:""
     }),
     methods: {
+      getTotalBudgeted() {
+        let total = 0;
+        for (const categoryGroup of this.budget.categoryGroups) {
+          for (const category of categoryGroup.categories) {
+            total += category.budgeted;
+          }
+        }
+        return total;
+      },
+      getTotalSpent() {
+        let total = 0;
+        for (const categoryGroup of this.budget.categoryGroups) {
+          for (const category of categoryGroup.categories) {
+            total += category.spent;
+          }
+        }
+        return total;
+      },
       getCategoryGroupBudgeted(categoryGroup) {
         let total = 0;
         for (const category of categoryGroup.categories) {
@@ -200,6 +241,7 @@
             {
               name: "Food",
               mdicon: "fastfood",
+              faicon: "",
               categories: [
                 {name: "Groceries", budgeted: 300, spent: 327.37},
                 {name: "Family Eating Out", budgeted: 175, spent: 158.99},
@@ -208,14 +250,15 @@
             },
             {
               name: "Housing",
+              mdicon: "home",
               categories: [
-                {name: "Mortgage", budgeted: 1214.80, spent: 1214.80},
+                {name: "Mortgage", budgeted: 1510.80, spent: 1510.80},
                 {name: "Additional Mortgage", budgeted: 0, spent: 0},
-                {name: "Work Eating Out", budgeted: 80, spent: 77.47},
               ]
             },
             {
               name: "Cars",
+              mdicon: "directions_car",
               categories: [
                 {name: "Car Loan", budgeted: 307.55, spent: 0},
                 {name: "Gas", budgeted: 125, spent: 95.42},
@@ -225,6 +268,7 @@
             },
             {
               name: "Bills",
+              mdicon: "drafts",
               categories: [
                 {name: "Electric", budgeted: 200, spent: 182.61},
                 {name: "Cellphone", budgeted: 60, spent: 53.36},
@@ -233,6 +277,7 @@
             },
             {
               name: "Subscriptions",
+              mdicon: "360",
               categories: [
                 {name: "YouTube TV", budgeted: 40, spent: 40},
                 {name: "Spotify", budgeted: 10.98, spent: 10.98},
