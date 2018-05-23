@@ -1,14 +1,31 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
+// router
+import VueRouter from 'vue-router';
+import router from './router.js';
 
-Vue.use(VueMaterial)
+// vuetify additional components (expansion panel)
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css'
 
-Vue.config.productionTip = false
+// vue-material for most components
+import VueMaterial from 'vue-material';
+import 'vue-material/dist/vue-material.min.css';
+import 'vue-material/dist/theme/default.css';
+
+// filters
+import Vue2Filters from 'vue2-filters';
+
+// use
+Vue.use(VueRouter);
+Vue.use(Vuetify);
+Vue.use(VueMaterial);
+Vue.use(Vue2Filters);
+
+Vue.config.productionTip = false;
 
 new Vue({
+  router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

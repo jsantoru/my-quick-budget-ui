@@ -1,20 +1,27 @@
 <template>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <PageContainer></PageContainer>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageContainer from './components/PageContainer.vue';
+import Reports from './components/Reports.vue';
+import Budget from './components/Budget.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    PageContainer,
+    Budget,
+    Reports
   }
 }
 </script>
 
 <style>
-#app {
+  html {
+    overflow: hidden;
+  }
+  #app {
 
-}
+  }
 </style>
