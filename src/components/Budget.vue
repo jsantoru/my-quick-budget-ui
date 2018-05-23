@@ -8,17 +8,17 @@
 
         <div class="mat-table">
           <div class="mat-header-row summary-header">
-            <div class="mat-header-cell currency-col">BUDGETED</div>
-            <div class="mat-header-cell currency-col">SPENT</div>
-            <div class="mat-header-cell currency-col">BUDGET REMAINING</div>
-            <div class="mat-header-cell currency-col">DAYS REMAINING</div>
+            <div class="mat-header-cell">BUDGETED</div>
+            <div class="mat-header-cell">SPENT</div>
+            <div class="mat-header-cell">BUDGET REMAINING</div>
+            <div class="mat-header-cell">DAYS REMAINING</div>
 
           </div>
           <div class="mat-row">
-            <div class="mat-cell currency-col">{{getTotalBudgeted() | currency}}</div>
-            <div class="mat-cell currency-col">{{getTotalSpent() | currency}}</div>
-            <div class="mat-cell currency-col">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
-            <div class="mat-cell currency-col">{{getMonthDaysLeft()}}</div>
+            <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
+            <div class="mat-cell">{{getTotalSpent() | currency}}</div>
+            <div class="mat-cell">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
+            <div class="mat-cell">{{getMonthDaysLeft()}}</div>
           </div>
         </div>
       </div>
@@ -85,6 +85,7 @@
 
   .heading-center {
     flex: 2;
+    text-align: center;
   }
 
   .heading-left,
