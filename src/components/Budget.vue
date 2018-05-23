@@ -8,26 +8,32 @@
 
         <div class="mat-table">
           <div class="mat-header-row summary-header">
-            <div class="mat-header-cell">TOTAL CASH</div>
             <div class="mat-header-cell">BUDGETED</div>
             <div class="mat-header-cell">SPENT</div>
             <div class="mat-header-cell">BUDGET REMAINING</div>
             <div class="mat-header-cell">DAYS REMAINING</div>
-            <div class="mat-header-cell">CASH BUFFER</div>
-            <div class="mat-header-cell">NEXT PAYCHECK</div>
           </div>
           <div class="mat-row summary-row">
-            <div class="mat-cell">{{6000 | currency}}</div>
             <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
             <div class="mat-cell">{{getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
+            <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
             <div class="mat-cell">{{getMonthDaysLeft()}}</div>
-            <div class="mat-cell">{{ 6000 - 3098.29 | currency}}</div>
-            <div class="mat-cell">June 1st ($2145)</div>
           </div>
         </div>
       </div>
       <div class="heading-right">
+        <div class="mat-table">
+          <div class="mat-header-row summary-header">
+            <div class="mat-header-cell">NEXT PAYCHECK</div>
+            <div class="mat-header-cell">NEXT BILL DUE</div>
+          </div>
+          <div class="mat-row summary-row">
+            <div class="mat-cell">June 1st ($2145)</div>
+            <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
+          </div>
+        </div>
+      </div>
+      <div class="heading-far-right">
 
       </div>
     </div>
@@ -89,12 +95,22 @@
   }
 
   .heading-center {
-    flex: 8;
+    flex: 3;
     text-align: center;
   }
 
-  .heading-left,
+  .heading-left {
+    flex: 1;
+  }
+
   .heading-right {
+    flex: 2;
+    padding-left:20px;
+    padding-right:20px;
+    text-align: center;
+  }
+
+  .heading-far-right {
     flex: 1;
   }
 
