@@ -4,16 +4,23 @@
       <!-- toolbar -->
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">
-          <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-            <md-icon>account_balance</md-icon>
-          </md-button>
           <div class="md-toolbar-section-start">
+            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
+              <md-icon>menu</md-icon>
+            </md-button>
             <span class="md-title">My Quick Budget</span>
           </div>
+          <!-- center of toolbar -->
+          <!-- TODO: logo -->
+          <span>...</span>
           <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button">
-              <md-icon>more_vert</md-icon>
+            <md-button class="md-icon-button md-accent">
+              <md-icon>thumb_up</md-icon>
             </md-button>
+            <md-button class="md-icon-button">
+              <md-icon>person</md-icon>
+            </md-button>
+
           </div>
         </div>
         <div class="md-toolbar-row">
@@ -23,6 +30,14 @@
             <md-tab id="tab-reports" md-label="Reports" to="/reports"></md-tab>
             <md-tab id="tab-setup" md-label="Setup" to="/setup"></md-tab>
           </md-tabs>
+          <div class="md-toolbar-section-start">
+          </div>
+          <div class="md-toolbar-section-end">
+            <!-- TODO: move button to sticky bottom right... how difficult is this? -->
+            <md-button class="md-icon-button md-raised md-accent" title="add transaction">
+              <md-icon>add</md-icon>
+            </md-button>
+          </div>
         </div>
       </md-app-toolbar>
 
