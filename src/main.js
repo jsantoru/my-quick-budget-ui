@@ -27,5 +27,9 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  data: () => ({
+    // central place where different components can share data
+    store: {}
+  }),
   render: h => h(App)
 }).$mount('#app');

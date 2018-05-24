@@ -1,11 +1,22 @@
 <template>
   <div class="budget-container">
+
+    <!-- Confirm - Delete Category-->
+    <md-dialog-confirm
+        :md-active.sync="confirmDeleteCategory"
+        md-title="Are you sure you want to delete this category?"
+        md-content="All transactions in this category will need to be re-categoried. Continue with category delete?"
+        md-confirm-text="Yes"
+        md-cancel-text="Cancel"
+        @md-cancel="cleanupDeleteCategory()"
+        @md-confirm="deleteCategory()">
+    </md-dialog-confirm>
+
     <div class="heading">
       <div class="heading-left">
         <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
       </div>
       <div class="heading-center">
-
         <div class="mat-table">
           <div class="mat-header-row summary-header">
             <div class="mat-header-cell">BUDGETED</div>
@@ -87,7 +98,7 @@
               <md-tooltip md-delay="0" md-direction="bottom">Add Transaction</md-tooltip>
             </md-button>
             <md-button v-if="category.isHover" class="md-icon-button md-raised md-accent md-dense"
-                @click="deleteCategory(categoryGroup.categories, category)">
+                @click="onClickDeleteCategory(categoryGroup.categories, category)">
               <md-icon>delete</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Delete Category</md-tooltip>
             </md-button>
@@ -277,20 +288,42 @@
     name: "Budget",
     data: () => ({
       budget: "",
-      labelText:""
+      labelText:"",
+      confirmDeleteCategory: false,
+      deleteCategoryObject: null
     }),
+    computed: {
+      store() {
+        return this.$root.$data.store;
+      }
+    },
     methods: {
       /* add/delete categories */
       addCategory(categoryGroup) {
         categoryGroup.categories.push({name: "", budgeted: 0, spent: 0, isHover: false});
       },
-      deleteCategory(categories, categoryToDelete) {
+      onClickDeleteCategory(categories, category) {
+        this.deleteCategoryObject = {categories, category};
+
+        // the confirm dialog is synced to this value
+        this.confirmDeleteCategory = true;
+      },
+      deleteCategory() {
+        const categories = this.deleteCategoryObject.categories;
+        const categoryToDelete = this.deleteCategoryObject.category;
+
         for (let i=0; i<categories.length; i++) {
           const category = categories[i];
           if (category.name === categoryToDelete.name) {
             categories.splice(i, 1);
           }
         }
+
+        this.cleanupDeleteCategory();
+      },
+      cleanupDeleteCategory() {
+        this.confirmDeleteCategory = false;
+        this.deleteCategoryObject = null;
       },
 
       /* methods for computing table values */
