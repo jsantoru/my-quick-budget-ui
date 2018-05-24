@@ -53,7 +53,9 @@
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
+            <!-- category group col -->
             <div class="mat-cell category-col">
+              <!-- on hover over the icon or the name, display an add category button -->
               <md-button
                   v-if="!categoryGroup.isHover"
                   class="md-icon-button md-dense"
@@ -70,7 +72,12 @@
                 <md-icon>add</md-icon>
                 <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
               </md-button>
-              <span class="category-group-name">{{categoryGroup.name}}</span></div>
+              <span class="category-group-name"
+                    @mouseover="categoryGroup.isHover = true"
+                    @mouseleave="categoryGroup.isHover = false">
+                {{categoryGroup.name}}
+              </span>
+            </div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col last-col">
