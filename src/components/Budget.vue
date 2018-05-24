@@ -70,7 +70,8 @@
             <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
           </div>
           <div class="mat-cell currency-col">
-            <currency-input v-model="category.spent"></currency-input>
+            <!--<currency-input v-model="category.spent"></currency-input>-->
+            <span>{{category.spent | currency}}</span>
           </div>
           <div class="mat-cell currency-col last-col">
             <span class="budget-badge"
