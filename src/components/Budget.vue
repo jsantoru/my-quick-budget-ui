@@ -54,8 +54,22 @@
         <div slot="header">
           <div class="category-group-row">
             <div class="mat-cell category-col">
-              <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
-              <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
+              <md-button
+                  v-if="!categoryGroup.isHover"
+                  class="md-icon-button md-dense"
+                  @mouseover="categoryGroup.isHover = true">
+                <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
+                <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
+                <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+              </md-button>
+              <md-button
+                  v-if="categoryGroup.isHover"
+                  class="md-icon-button md-raised md-accent md-dense"
+                  @mouseleave="categoryGroup.isHover = false"
+                  @click="$event.stopPropagation();">
+                <md-icon>add</md-icon>
+                <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+              </md-button>
               <span class="category-group-name">{{categoryGroup.name}}</span></div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
@@ -201,6 +215,9 @@
     flex: 1;
     overflow: hidden;
     word-wrap: normal;
+
+    display: flex;
+    align-items: center;
   }
 
   .category-col {
@@ -297,7 +314,8 @@
                 {name: "Groceries", budgeted: 300, spent: 327.37},
                 {name: "Family Eating Out", budgeted: 175, spent: 158.99},
                 {name: "Work Eating Out", budgeted: 80, spent: 77.47},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Housing",
@@ -305,7 +323,8 @@
               categories: [
                 {name: "Mortgage", budgeted: 1510.80, spent: 1510.80},
                 {name: "Additional Mortgage", budgeted: 0, spent: 0},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Cars",
@@ -315,7 +334,8 @@
                 {name: "Gas", budgeted: 125, spent: 95.42},
                 {name: "Insurance", budgeted: 125, spent: 120.44},
                 {name: "Maintenance", budgeted: 25, spent: 0},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Bills",
@@ -324,7 +344,8 @@
                 {name: "Electric", budgeted: 200, spent: 182.61},
                 {name: "Cellphone", budgeted: 60, spent: 53.36},
                 {name: "Internet", budgeted: 64.99, spent: 64.99},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Subscriptions",
@@ -337,7 +358,8 @@
                 {name: "YNAB", budgeted: 5, spent: 0},
                 {name: "Amazon Prime", budgeted: 10, spent: 0},
                 {name: "Museum of Play", budgeted: 15, spent: 0},
-              ]
+              ],
+              isHover: false
             },
           ]
         };
