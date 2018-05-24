@@ -48,7 +48,8 @@
 
       </div>
     </div>
-
+    <div class="bottom-container">
+      <div class="budget-table-container">
     <!-- begin main table -->
     <div class="mat-table">
       <div class="mat-header-row">
@@ -119,11 +120,39 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
   </div>
+    <div class="right-side">
+      <h2>RIGHT SIDE</h2>
+    </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
   .budget-container {
-    /*width:75%;*/
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bottom-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .budget-table-container {
+    flex: 5;
+  }
+
+  .right-side {
+    flex: 1;
+  }
+
+  /* hide the right bar when the width shrinks */
+  /* TODO: do this in other spots to make it much more mobile friendly */
+  @media (max-width: 1200px) {
+    .right-side {
+      display: none;
+      flex: 0;
+    }
   }
 
   .heading {
@@ -133,6 +162,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
   }
 
   .heading-center {
