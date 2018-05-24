@@ -17,11 +17,16 @@
 
 <style scoped>
   input {
-    text-align: right;
     max-width: 150px;
+  }
 
-    /* can't seem to override font-size */
-    font-size: 12px;
+  /* not working */
+  /*input::placeholder {
+    font-size: 14px;
+  }*/
+
+  .right-align {
+    text-align: right;
   }
 
   /* remove bottom line when not being edited */
@@ -41,8 +46,8 @@
 <script>
   export default {
     components: {},
-    name: "CurrencyInput",
-    props: ["value"],
+    name: "SmartInput",
+    props: ["value", "type", "rightAlign"],
     data: function () {
       return {
         prevValue: "",
@@ -50,28 +55,37 @@
       }
     },
     computed: {
+      rightAlignValue() {
+        return this.rightAlign || false;
+      },
+      typeValue() {
+        return this.type || "string";
+      },
       displayValue: {
         get: function () {
-          if (this.isInputActive) {
+          if (this.isInputActive || this.typeValue !== "currency") {
             // Cursor is inside the input field. unformat display value for user
-            return this.value.toString()
+            return this.value.toString();
           } else {
             // User is not modifying now. Format display value for user interface
-            return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
           }
         },
 
         // TODO: define a WIP value and then send event to update value only on "ENTER" or "blur"
         // TODO: do not send an update on "ESC"
         set: function (modifiedValue) {
-          // Recalculate value after ignoring "$" and "," in user input
-          let newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""))
-          // Ensure that it is not NaN
-          if (isNaN(newValue)) {
-            newValue = 0
+          let newValue = modifiedValue;
+          if (this.typeValue === "currency") {
+            // Recalculate value after ignoring "$" and "," in user input
+            newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""))
+            // Ensure that it is not NaN
+            if (isNaN(newValue)) {
+              newValue = 0
+            }
+            // Note: we cannot set this.value as it is a "prop". It needs to be passed to parent component
+            // $emit the event so that parent component gets it
           }
-          // Note: we cannot set this.value as it is a "prop". It needs to be passed to parent component
-          // $emit the event so that parent component gets it
 
           this.$emit('input', newValue)
         }
@@ -84,12 +98,13 @@
 
         // TODO: remove focus
         // TODO: focus on something else??
-
       },
 
       getPreviousDisplayValue() {
-        return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
-
+        if (this.type === "currency") {
+          return "$ " + this.value.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+        }
+        return this.value;
       }
     },
 
@@ -97,6 +112,15 @@
       // override the vue-material font-size for inputs
       // overriding with classes in the template didn't work, so override it after it's been mounted
       this.$refs.input.$el.style.fontSize = "14px";
+
+      // TODO: override the placeholder text font-size as well (currently 16px)
+      //console.log(this.$refs.input.$el.attributes["placeholder"].style);
+
+      // if right align was passed in
+      if (this.rightAlignValue) {
+        this.$refs.input.$el.style.textAlign = "right";
+      }
+
     }
   }
 </script>

@@ -10,19 +10,30 @@
           <div class="mat-header-row summary-header">
             <div class="mat-header-cell">BUDGETED</div>
             <div class="mat-header-cell">SPENT</div>
-            <div class="mat-header-cell">BUDGET REMAINING</div>
+            <div class="mat-header-cell">REMAINING</div>
             <div class="mat-header-cell">DAYS REMAINING</div>
-
           </div>
-          <div class="mat-row">
+          <div class="mat-row summary-row">
             <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
             <div class="mat-cell">{{getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{(Math.trunc(100 - (getTotalSpent() / getTotalBudgeted()) * 100))}}%</div>
+            <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
             <div class="mat-cell">{{getMonthDaysLeft()}}</div>
           </div>
         </div>
       </div>
       <div class="heading-right">
+        <div class="mat-table">
+          <div class="mat-header-row summary-header">
+            <div class="mat-header-cell">NEXT PAYCHECK</div>
+            <div class="mat-header-cell">NEXT BILL DUE</div>
+          </div>
+          <div class="mat-row summary-row">
+            <div class="mat-cell">June 1st ($2145)</div>
+            <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
+          </div>
+        </div>
+      </div>
+      <div class="heading-far-right">
 
       </div>
     </div>
@@ -42,10 +53,23 @@
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
+            <!-- category col -->
             <div class="mat-cell category-col">
-              <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
-              <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
-              <span class="category-group-name">{{categoryGroup.name}}</span></div>
+              <!-- on hover over the icon or the name, display an add category button -->
+              <span class="category-group-wrapper" @mouseover="categoryGroup.isHover = true" @mouseleave="categoryGroup.isHover = false">
+                <md-button v-if="!categoryGroup.isHover" class="md-icon-button md-dense">
+                  <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
+                  <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
+                  <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+                </md-button>
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-accent md-dense"
+                           @click="$event.stopPropagation(); addCategory(categoryGroup)">
+                  <md-icon>add</md-icon>
+                  <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+                </md-button>
+                <span class="category-group-name">{{categoryGroup.name}}</span>
+              </span>
+            </div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col last-col">
@@ -53,13 +77,18 @@
             </div>
           </div>
         </div>
+
+        <!-- categories -->
         <div v-for="category in categoryGroup.categories" class="mat-row">
-          <div class="mat-cell category-col">{{category.name}}</div>
-          <div class="mat-cell currency-col">
-            <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
+          <div class="mat-cell category-col">
+            <!--{{category.name}}-->
+            <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
           </div>
           <div class="mat-cell currency-col">
-            <currency-input v-model="category.spent"></currency-input>
+            <smart-input v-model="category.budgeted" :type="'currency'" :right-align="true" @focus.native="$event.target.select();"></smart-input>
+          </div>
+          <div class="mat-cell currency-col">
+            <span>{{category.spent | currency}}</span>
           </div>
           <div class="mat-cell currency-col last-col">
             <span class="budget-badge"
@@ -84,12 +113,22 @@
   }
 
   .heading-center {
-    flex: 2;
+    flex: 3;
     text-align: center;
   }
 
-  .heading-left,
+  .heading-left {
+    flex: 1;
+  }
+
   .heading-right {
+    flex: 2;
+    padding-left:20px;
+    padding-right:20px;
+    text-align: center;
+  }
+
+  .heading-far-right {
     flex: 1;
   }
 
@@ -97,8 +136,18 @@
     background-color: whitesmoke;
   }
 
+  .summary-row {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 15px;
+  }
+
   .category-group-name {
     padding-left: 5px;
+  }
+
+  .category-group-wrapper {
+    display: flex;
+    align-items:center;
   }
 
   /* badge */
@@ -174,6 +223,9 @@
     flex: 1;
     overflow: hidden;
     word-wrap: normal;
+
+    display: flex;
+    align-items: center;
   }
 
   .category-col {
@@ -205,16 +257,19 @@
 <script>
   import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
   import VueNumeric from 'vue-numeric';
-  import CurrencyInput from './CurrencyInput.vue';
+  import SmartInput from './SmartInput.vue';
 
   export default {
-    components: {VExpansionPanel, VueNumeric, CurrencyInput},
+    components: {VExpansionPanel, VueNumeric, SmartInput},
     name: "Budget",
     data: () => ({
       budget: "",
       labelText:""
     }),
     methods: {
+      addCategory(categoryGroup) {
+        categoryGroup.categories.push({name: "", budgeted: 0, spent: 0});
+      },
       getMonthDaysLeft(){
         const date = new Date();
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
@@ -270,7 +325,8 @@
                 {name: "Groceries", budgeted: 300, spent: 327.37},
                 {name: "Family Eating Out", budgeted: 175, spent: 158.99},
                 {name: "Work Eating Out", budgeted: 80, spent: 77.47},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Housing",
@@ -278,7 +334,8 @@
               categories: [
                 {name: "Mortgage", budgeted: 1510.80, spent: 1510.80},
                 {name: "Additional Mortgage", budgeted: 0, spent: 0},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Cars",
@@ -288,7 +345,8 @@
                 {name: "Gas", budgeted: 125, spent: 95.42},
                 {name: "Insurance", budgeted: 125, spent: 120.44},
                 {name: "Maintenance", budgeted: 25, spent: 0},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Bills",
@@ -297,7 +355,8 @@
                 {name: "Electric", budgeted: 200, spent: 182.61},
                 {name: "Cellphone", budgeted: 60, spent: 53.36},
                 {name: "Internet", budgeted: 64.99, spent: 64.99},
-              ]
+              ],
+              isHover: false
             },
             {
               name: "Subscriptions",
@@ -310,7 +369,8 @@
                 {name: "YNAB", budgeted: 5, spent: 0},
                 {name: "Amazon Prime", budgeted: 10, spent: 0},
                 {name: "Museum of Play", budgeted: 15, spent: 0},
-              ]
+              ],
+              isHover: false
             },
           ]
         };
