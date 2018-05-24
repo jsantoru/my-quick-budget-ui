@@ -58,7 +58,7 @@
       },
       displayValue: {
         get: function () {
-          if (this.isInputActive || this.type !== "currency") {
+          if (this.isInputActive || this.typeValue !== "currency") {
             // Cursor is inside the input field. unformat display value for user
             return this.value.toString();
           } else {
@@ -71,7 +71,7 @@
         // TODO: do not send an update on "ESC"
         set: function (modifiedValue) {
           let newValue = modifiedValue;
-          if (this.type === "currency") {
+          if (this.typeValue === "currency") {
             // Recalculate value after ignoring "$" and "," in user input
             newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""))
             // Ensure that it is not NaN
