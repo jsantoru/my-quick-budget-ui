@@ -53,29 +53,20 @@
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
-            <!-- category group col -->
+            <!-- category col -->
             <div class="mat-cell category-col">
               <!-- on hover over the icon or the name, display an add category button -->
-              <md-button
-                  v-if="!categoryGroup.isHover"
-                  class="md-icon-button md-dense"
-                  @mouseover="categoryGroup.isHover = true">
-                <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
-                <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
-                <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
-              </md-button>
-              <md-button
-                  v-if="categoryGroup.isHover"
-                  class="md-icon-button md-raised md-accent md-dense"
-                  @mouseleave="categoryGroup.isHover = false"
-                  @click="$event.stopPropagation();">
-                <md-icon>add</md-icon>
-                <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
-              </md-button>
-              <span class="category-group-name"
-                    @mouseover="categoryGroup.isHover = true"
-                    @mouseleave="categoryGroup.isHover = false">
-                {{categoryGroup.name}}
+              <span class="category-group-wrapper" @mouseover="categoryGroup.isHover = true" @mouseleave="categoryGroup.isHover = false">
+                <md-button v-if="!categoryGroup.isHover" class="md-icon-button md-dense">
+                  <md-icon v-if="categoryGroup.mdicon">{{categoryGroup.mdicon}}</md-icon>
+                  <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
+                  <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+                </md-button>
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-accent md-dense" @click="$event.stopPropagation();">
+                  <md-icon>add</md-icon>
+                  <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
+                </md-button>
+                <span class="category-group-name">{{categoryGroup.name}}</span>
               </span>
             </div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
@@ -85,13 +76,14 @@
             </div>
           </div>
         </div>
+
+        <!-- categories -->
         <div v-for="category in categoryGroup.categories" class="mat-row">
           <div class="mat-cell category-col">{{category.name}}</div>
           <div class="mat-cell currency-col">
             <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
           </div>
           <div class="mat-cell currency-col">
-            <!--<currency-input v-model="category.spent"></currency-input>-->
             <span>{{category.spent | currency}}</span>
           </div>
           <div class="mat-cell currency-col last-col">
@@ -147,6 +139,11 @@
 
   .category-group-name {
     padding-left: 5px;
+  }
+
+  .category-group-wrapper {
+    display: flex;
+    align-items:center;
   }
 
   /* badge */
