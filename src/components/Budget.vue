@@ -62,7 +62,7 @@
                   <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
                 </md-button>
-                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-accent md-dense"
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-primary md-dense"
                            @click="$event.stopPropagation(); addCategory(categoryGroup)">
                   <md-icon>add</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
@@ -80,9 +80,17 @@
 
         <!-- categories -->
         <div v-for="category in categoryGroup.categories" class="mat-row">
-          <div class="mat-cell category-col">
-            <!--{{category.name}}-->
+          <div class="mat-cell category-col" @mouseover="category.isHover = true" @mouseleave="category.isHover = false">
             <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
+            <md-button v-if="category.isHover" class="md-icon-button md-raised md-primary md-dense">
+              <md-icon>add</md-icon>
+              <md-tooltip md-delay="0" md-direction="bottom">Add Transaction</md-tooltip>
+            </md-button>
+            <md-button v-if="category.isHover" class="md-icon-button md-raised md-accent md-dense"
+                @click="deleteCategory(categoryGroup.categories, category)">
+              <md-icon>delete</md-icon>
+              <md-tooltip md-delay="0" md-direction="bottom">Delete Category</md-tooltip>
+            </md-button>
           </div>
           <div class="mat-cell currency-col">
             <smart-input v-model="category.budgeted" :type="'currency'" :right-align="true" @focus.native="$event.target.select();"></smart-input>
@@ -103,6 +111,10 @@
 </template>
 
 <style scoped>
+  .budget-container {
+    /*width:75%;*/
+  }
+
   .heading {
     box-shadow: 0 3px 2px -2px gray;
 
@@ -226,10 +238,11 @@
 
     display: flex;
     align-items: center;
+
   }
 
   .category-col {
-    flex: .5;
+    flex: 2;
   }
 
   .currency-col {
@@ -267,9 +280,20 @@
       labelText:""
     }),
     methods: {
+      /* add/delete categories */
       addCategory(categoryGroup) {
-        categoryGroup.categories.push({name: "", budgeted: 0, spent: 0});
+        categoryGroup.categories.push({name: "", budgeted: 0, spent: 0, isHover: false});
       },
+      deleteCategory(categories, categoryToDelete) {
+        for (let i=0; i<categories.length; i++) {
+          const category = categories[i];
+          if (category.name === categoryToDelete.name) {
+            categories.splice(i, 1);
+          }
+        }
+      },
+
+      /* methods for computing table values */
       getMonthDaysLeft(){
         const date = new Date();
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
@@ -312,6 +336,7 @@
       getCategoryRemaining(category) {
         return category.budgeted - category.spent;
       },
+
       retrieveBudget() {
         console.log("retrieve");
 
@@ -322,9 +347,9 @@
               mdicon: "fastfood",
               faicon: "",
               categories: [
-                {name: "Groceries", budgeted: 300, spent: 327.37},
-                {name: "Family Eating Out", budgeted: 175, spent: 158.99},
-                {name: "Work Eating Out", budgeted: 80, spent: 77.47},
+                {name: "Groceries", budgeted: 300, spent: 327.37, isHover: false},
+                {name: "Family Eating Out", budgeted: 175, spent: 158.99, isHover: false},
+                {name: "Work Eating Out", budgeted: 80, spent: 77.47, isHover: false},
               ],
               isHover: false
             },
@@ -332,8 +357,8 @@
               name: "Housing",
               mdicon: "home",
               categories: [
-                {name: "Mortgage", budgeted: 1510.80, spent: 1510.80},
-                {name: "Additional Mortgage", budgeted: 0, spent: 0},
+                {name: "Mortgage", budgeted: 1510.80, spent: 1510.80, isHover: false},
+                {name: "Additional Mortgage", budgeted: 0, spent: 0, isHover: false},
               ],
               isHover: false
             },
@@ -341,10 +366,10 @@
               name: "Cars",
               mdicon: "directions_car",
               categories: [
-                {name: "Car Loan", budgeted: 307.55, spent: 0},
-                {name: "Gas", budgeted: 125, spent: 95.42},
-                {name: "Insurance", budgeted: 125, spent: 120.44},
-                {name: "Maintenance", budgeted: 25, spent: 0},
+                {name: "Car Loan", budgeted: 307.55, spent: 0, isHover: false},
+                {name: "Gas", budgeted: 125, spent: 95.42, isHover: false},
+                {name: "Insurance", budgeted: 125, spent: 120.44, isHover: false},
+                {name: "Maintenance", budgeted: 25, spent: 0, isHover: false},
               ],
               isHover: false
             },
@@ -352,9 +377,9 @@
               name: "Bills",
               mdicon: "drafts",
               categories: [
-                {name: "Electric", budgeted: 200, spent: 182.61},
-                {name: "Cellphone", budgeted: 60, spent: 53.36},
-                {name: "Internet", budgeted: 64.99, spent: 64.99},
+                {name: "Electric", budgeted: 200, spent: 182.61, isHover: false},
+                {name: "Cellphone", budgeted: 60, spent: 53.36, isHover: false},
+                {name: "Internet", budgeted: 64.99, spent: 64.99, isHover: false},
               ],
               isHover: false
             },
@@ -362,13 +387,13 @@
               name: "Subscriptions",
               mdicon: "repeat",
               categories: [
-                {name: "YouTube TV", budgeted: 40, spent: 40},
-                {name: "Spotify", budgeted: 10.98, spent: 10.98},
-                {name: "Netflix", budgeted: 13.99, spent: 13.99},
-                {name: "Gym", budgeted: 29.98, spent: 29.98},
-                {name: "YNAB", budgeted: 5, spent: 0},
-                {name: "Amazon Prime", budgeted: 10, spent: 0},
-                {name: "Museum of Play", budgeted: 15, spent: 0},
+                {name: "YouTube TV", budgeted: 40, spent: 40, isHover: false},
+                {name: "Spotify", budgeted: 10.98, spent: 10.98, isHover: false},
+                {name: "Netflix", budgeted: 13.99, spent: 13.99, isHover: false},
+                {name: "Gym", budgeted: 29.98, spent: 29.98, isHover: false},
+                {name: "YNAB", budgeted: 5, spent: 0, isHover: false},
+                {name: "Amazon Prime", budgeted: 10, spent: 0, isHover: false},
+                {name: "Museum of Play", budgeted: 15, spent: 0, isHover: false},
               ],
               isHover: false
             },
