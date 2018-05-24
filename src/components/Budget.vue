@@ -62,7 +62,8 @@
                   <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
                 </md-button>
-                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-accent md-dense" @click="$event.stopPropagation();">
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-accent md-dense"
+                           @click="$event.stopPropagation(); addCategory(categoryGroup)">
                   <md-icon>add</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
                 </md-button>
@@ -266,6 +267,9 @@
       labelText:""
     }),
     methods: {
+      addCategory(categoryGroup) {
+        categoryGroup.categories.push({name: "", budgeted: 0, spent: 0});
+      },
       getMonthDaysLeft(){
         const date = new Date();
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
