@@ -79,9 +79,12 @@
 
         <!-- categories -->
         <div v-for="category in categoryGroup.categories" class="mat-row">
-          <div class="mat-cell category-col">{{category.name}}</div>
+          <div class="mat-cell category-col">
+            <!--{{category.name}}-->
+            <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
+          </div>
           <div class="mat-cell currency-col">
-            <currency-input v-model="category.budgeted" @focus.native="$event.target.select();"></currency-input>
+            <smart-input v-model="category.budgeted" :type="'currency'" :right-align="true" @focus.native="$event.target.select();"></smart-input>
           </div>
           <div class="mat-cell currency-col">
             <span>{{category.spent | currency}}</span>
@@ -253,10 +256,10 @@
 <script>
   import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
   import VueNumeric from 'vue-numeric';
-  import CurrencyInput from './CurrencyInput.vue';
+  import SmartInput from './SmartInput.vue';
 
   export default {
-    components: {VExpansionPanel, VueNumeric, CurrencyInput},
+    components: {VExpansionPanel, VueNumeric, SmartInput},
     name: "Budget",
     data: () => ({
       budget: "",
