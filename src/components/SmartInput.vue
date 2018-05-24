@@ -20,6 +20,11 @@
     max-width: 150px;
   }
 
+  /* not working */
+  /*input::placeholder {
+    font-size: 14px;
+  }*/
+
   .right-align {
     text-align: right;
   }
@@ -108,9 +113,11 @@
       // overriding with classes in the template didn't work, so override it after it's been mounted
       this.$refs.input.$el.style.fontSize = "14px";
 
+      // TODO: override the placeholder text font-size as well (currently 16px)
+      //console.log(this.$refs.input.$el.attributes["placeholder"].style);
+
       // if right align was passed in
       if (this.rightAlignValue) {
-        console.log("right align");
         this.$refs.input.$el.style.textAlign = "right";
       }
 
