@@ -1,16 +1,11 @@
 <template>
   <div class="container" ref="container">
-    <div class="top">TOP</div>
+    <div class="top"><toolbar></toolbar></div>
     <div class="middle">
       <div class="middle-left">
-        <p>SIDEBAR CONTENT</p>
-        <p>SIDEBAR CONTENT</p>
-        <p>SIDEBAR CONTENT</p>
-        <p>SIDEBAR CONTENT</p>
-        <p>SIDEBAR CONTENT</p>
+        <drawer></drawer>
       </div>
       <div class="middle-content">
-
         <div class="middle-content-header">
           <p>MIDDLE CONTENT HEADER</p>
         </div>
@@ -35,13 +30,18 @@
 </template>
 
 <script>
-  import Budget from './components/Budget.vue'
-
+import Budget from './components/Budget.vue'
+import Toolbar from './components/Toolbar.vue'
+import Drawer from './components/Drawer.vue'
 export default {
   name: 'app',
   components: {
-    Budget
-  }
+    Budget,
+    Toolbar,
+    Drawer
+  },
+  data: () => ({
+  })
 }
 </script>
 
@@ -55,6 +55,7 @@ export default {
     height: 100%; /* fill up the available space */
     overflow: hidden;
     padding: 0;
+    max-width:100%;
   }
 
   div {
@@ -66,7 +67,9 @@ export default {
     flex-direction: column; /* stack divs vertically - this allows the top bar to be on top instead of on the left */
   }
   .top {
-    height: 50px; /* static height nav */
+    height: 72px; /* static height nav */
+
+
     /*flex:1;*/ /* relative size to divs at the same level */
   }
   .middle {
@@ -74,7 +77,10 @@ export default {
     flex: 9; /* relative size to divs at the same level */
   }
   .middle-left {
-    flex: 1; /* relative size to divs at the same level */
+    /*flex: 1; /* relative size to divs at the same level */
+    min-width:230px;
+
+
     overflow: auto; /* enable scroll bar */
     /* needed for its child divs */
     display: flex; /* needed at the parent level, so child divs can use 'flex: n' */
@@ -108,12 +114,11 @@ export default {
 
 
 /* hide sidebars when width shrinks */
-/* TODO: add hamburgers to display sidebars if needed - USE DRAWERS!! */
 @media (max-width:1000px) {
   .middle-left,
   .middle-right {
-  display: none;
-  width:0px;
+    display: none;
+    width:0px;
   }
 }
 </style>
