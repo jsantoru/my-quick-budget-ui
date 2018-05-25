@@ -1,6 +1,3 @@
-import Vue from 'vue';
-import App from './App.vue';
-
 // router
 import VueRouter from 'vue-router';
 import router from './router.js';
@@ -16,6 +13,11 @@ import 'vue-material/dist/theme/default.css';
 
 // filters
 import Vue2Filters from 'vue2-filters';
+
+import Vue from 'vue';
+
+// import the App last so these styles override any from the component library styles
+import App from './App.vue';
 
 // use
 Vue.use(VueRouter);
