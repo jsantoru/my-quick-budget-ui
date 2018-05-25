@@ -39,11 +39,11 @@
   </md-toolbar>
 
   <md-drawer class="left-drawer" :md-active.sync="showDrawer">
-    <Drawer></Drawer>
+    <AccountsDrawer></AccountsDrawer>
   </md-drawer>
 
   <md-drawer class="md-right right-drawer" :md-active.sync="showRightSideDrawer">
-    SUMMARY
+    <Summary></Summary>
   </md-drawer>
   </div>
 </template>
@@ -51,7 +51,7 @@
 <style scoped>
   .left-drawer,
   .right-drawer {
-    width: 230px;
+    width: 300px;
   }
 
   /* when the screen is below 1000px the sidebars are removed, and buttons should be rendered to show the drawers */
@@ -66,11 +66,14 @@
 </style>
 
 <script>
-  import Drawer from './AccountsDrawer.vue'
+  import AccountsDrawer from './AccountsDrawer.vue'
+  import Summary from './Summary.vue'
+
   export default {
     name: "Toolbar",
     components: {
-      Drawer
+      AccountsDrawer,
+      Summary
     },
     data: () => ({
       showDrawer: false,

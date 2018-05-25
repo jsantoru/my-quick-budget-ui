@@ -7,34 +7,25 @@
       </div>
       <div class="middle-content">
         <router-view></router-view>
-        <!--<div class="middle-content-header">
-          <p>MIDDLE CONTENT HEADER</p>
-        </div>
-
-        <div class="middle-content-body">
-          <router-view></router-view>
-        </div>-->
-
       </div>
       <div class="middle-right">
         <Summary></Summary>
       </div>
     </div>
     <div class="bottom">
-      <p>BOTTOM</p>
+      <p style="padding-left:10px;">© My Quick Budget {{(new Date()).getFullYear()}}</p>
+
     </div>
   </div>
 </template>
 
 <script>
-import Budget from './components/Budget.vue'
 import Toolbar from './components/Toolbar.vue'
 import AccountsDrawer from './components/AccountsDrawer.vue'
 import Summary from './components/Summary.vue'
 export default {
   name: 'app',
   components: {
-    Budget,
     Toolbar,
     AccountsDrawer,
     Summary
@@ -78,9 +69,10 @@ export default {
   .middle-left {
     /*flex: 1; /* relative size to divs at the same level */
     min-width:230px;
-
-
     overflow: auto; /* enable scroll bar */
+
+    border-right:1px solid lightgrey;
+
     /* needed for its child divs */
     display: flex; /* needed at the parent level, so child divs can use 'flex: n' */
     flex-direction: column; /* child divs stack vertically */
@@ -105,6 +97,8 @@ export default {
   .middle-right {
     flex: 1; /* relative size to divs at the same level */
     overflow: auto; /* vertical scrollbar */
+
+    min-width: 300px;
   }
   .bottom {
     height: 20px;

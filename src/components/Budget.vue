@@ -110,59 +110,6 @@
     flex: 5;
   }
 
-  .right-side {
-    flex: 1;
-  }
-
-  /* hide the right bar when the width shrinks */
-  /* TODO: do this in other spots to make it much more mobile friendly */
-  @media (max-width: 1200px) {
-    .right-side {
-      display: none;
-      flex: 0;
-    }
-  }
-
-  .heading {
-    box-shadow: 0 3px 2px -2px gray;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-  }
-
-  .heading-center {
-    flex: 3;
-    text-align: center;
-  }
-
-  .heading-left {
-    flex: 1;
-  }
-
-  .heading-right {
-    flex: 2;
-    padding-left:20px;
-    padding-right:20px;
-    text-align: center;
-  }
-
-  .heading-far-right {
-    flex: 1;
-  }
-
-  .summary-header {
-    background-color: whitesmoke;
-  }
-
-  .summary-row {
-    border-bottom: 1px solid lightgray;
-    margin-bottom: 15px;
-  }
-
   .category-group-name {
     padding-left: 5px;
   }

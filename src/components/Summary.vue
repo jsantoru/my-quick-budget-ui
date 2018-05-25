@@ -1,44 +1,62 @@
 <template>
-  <div class="heading">
-    <div class="heading-left">
-      <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
+  <div class="summary">
+    <div class="summary-top">
+      <md-toolbar class="md-transparent md-dense" md-elevation="0">
+        <md-icon>calendar_today</md-icon>
+        <h5 class="md-title" style="flex: 1">May 2018</h5>
+      </md-toolbar>
     </div>
-    <div class="heading-center">
-      <div class="mat-table">
-        <div class="mat-header-row summary-header">
-          <div class="mat-header-cell">BUDGETED</div>
-          <div class="mat-header-cell">SPENT</div>
-          <div class="mat-header-cell">REMAINING</div>
-          <div class="mat-header-cell">DAYS REMAINING</div>
-        </div>
-        <div class="mat-row summary-row">
-          <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
-          <div class="mat-cell">{{getTotalSpent() | currency}}</div>
-          <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
-          <div class="mat-cell">{{getMonthDaysLeft()}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="heading-right">
-      <div class="mat-table">
-        <div class="mat-header-row summary-header">
-          <div class="mat-header-cell">NEXT PAYCHECK</div>
-          <div class="mat-header-cell">NEXT BILL DUE</div>
-        </div>
-        <div class="mat-row summary-row">
-          <div class="mat-cell">June 1st ($2145)</div>
-          <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
-        </div>
-      </div>
-    </div>
-    <div class="heading-far-right">
+    <div class="summary-middle">
+      <md-list>
+        <md-divider></md-divider>
+        <md-list-item style="background-color:whitesmoke;">
+          <span class="md-title" style="font-size:18px;">Budget Summary</span>
+        </md-list-item>
+        <md-list-item>
+          <span class="md-list-item-text">Budgeted</span>
+          <div>{{getTotalBudgeted() | currency}}</div>
+        </md-list-item>
 
+        <md-list-item>
+          <span class="md-list-item-text">Spent</span>
+          <div>{{getTotalSpent() | currency}}</div>
+        </md-list-item>
+
+        <md-list-item>
+          <span class="md-list-item-text">Remaining</span>
+          <div>{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
+        </md-list-item>
+
+        <md-list-item>
+          <span class="md-list-item-text">Days Left</span>
+          <div>{{getMonthDaysLeft()}}</div>
+        </md-list-item>
+
+        <md-divider></md-divider>
+
+        <md-list-item style="background-color:whitesmoke;">
+          <span class="md-title" style="font-size:18px;">Paycheck and Bills Summary</span>
+        </md-list-item>
+
+        <md-list-item>
+          <span class="md-list-item-text">Next Paycheck</span>
+          <div>June 1st ($2145)</div>
+        </md-list-item>
+        <md-list-item>
+          <span class="md-list-item-text">Next Bill Due</span>
+          <div>June 1st (Mortgage - $1510)</div>
+        </md-list-item>
+      </md-list>
+    </div>
+    <div class="summary-bottom">
     </div>
   </div>
 </template>
 
 <style scoped>
-
+  .cash-badge {
+    background-color: green;
+  }
 </style>
 
 <script>
