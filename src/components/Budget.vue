@@ -322,7 +322,6 @@
     components: {VExpansionPanel, VueNumeric, SmartInput},
     name: "Budget",
     data: () => ({
-      budget: "",
       labelText:"",
       confirmDeleteCategory: false,
       deleteCategoryObject: null
@@ -330,6 +329,9 @@
     computed: {
       store() {
         return this.$root.$data.store;
+      },
+      budget() {
+        return this.store.budget;
       }
     },
     methods: {
@@ -468,7 +470,8 @@
           ]
         };
 
-        this.budget = budget;
+        //this.budget = budget;
+        this.$root.$data.store.budget = budget;
       }
     },
     created() {
