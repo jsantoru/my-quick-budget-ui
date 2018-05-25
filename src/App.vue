@@ -3,7 +3,7 @@
     <div class="top"><toolbar></toolbar></div>
     <div class="middle">
       <div class="middle-left">
-        <drawer></drawer>
+        <AccountsDrawer></AccountsDrawer>
       </div>
       <div class="middle-content">
         <router-view></router-view>
@@ -29,14 +29,14 @@
 <script>
 import Budget from './components/Budget.vue'
 import Toolbar from './components/Toolbar.vue'
-import Drawer from './components/Drawer.vue'
+import AccountsDrawer from './components/AccountsDrawer.vue'
 import Summary from './components/Summary.vue'
 export default {
   name: 'app',
   components: {
     Budget,
     Toolbar,
-    Drawer,
+    AccountsDrawer,
     Summary
   },
   data: () => ({

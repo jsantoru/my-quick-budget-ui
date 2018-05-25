@@ -83,7 +83,7 @@
 
 <script>
   export default {
-    name: "Drawer",
+    name: "AccountsDrawer",
     data: () => ({
     }),
     methods: {

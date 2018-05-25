@@ -87,7 +87,7 @@
 </style>
 
 <script>
-  import Drawer from './Drawer.vue';
+  import Drawer from './AccountsDrawer.vue';
 
   export default {
     name: "PageContainer",
