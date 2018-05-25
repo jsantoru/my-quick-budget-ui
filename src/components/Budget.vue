@@ -279,11 +279,11 @@
 
 <script>
   import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
-  import VueNumeric from 'vue-numeric';
   import SmartInput from './SmartInput.vue';
+  import budgetCalcUtils from '../shared/BudgetCalcUtils';
 
   export default {
-    components: {VExpansionPanel, VueNumeric, SmartInput},
+    components: {VExpansionPanel, SmartInput},
     name: "Budget",
     data: () => ({
       labelText:"",
@@ -329,24 +329,16 @@
 
       /* methods for computing table values */
       getCategoryGroupBudgeted(categoryGroup) {
-        let total = 0;
-        for (const category of categoryGroup.categories) {
-          total += category.budgeted;
-        }
-        return total;
+        return budgetCalcUtils.getCategoryGroupBudgeted(categoryGroup);
       },
       getCategoryGroupSpent(categoryGroup) {
-        let total = 0;
-        for (const category of categoryGroup.categories) {
-          total += category.spent;
-        }
-        return total;
+        return budgetCalcUtils.getCategoryGroupSpent(categoryGroup);
       },
       getCategoryGroupRemaining(categoryGroup) {
-        return this.getCategoryGroupBudgeted(categoryGroup) - this.getCategoryGroupSpent(categoryGroup);
+        return budgetCalcUtils.getCategoryGroupRemaining(categoryGroup);
       },
       getCategoryRemaining(category) {
-        return category.budgeted - category.spent;
+        return budgetCalcUtils.getCategoryRemaining(category);
       },
 
       retrieveBudget() {

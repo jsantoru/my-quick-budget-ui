@@ -23,4 +23,25 @@ export default {
     }
     return total;
   },
+  /* methods for computing table values */
+  getCategoryGroupBudgeted(categoryGroup) {
+    let total = 0;
+    for (const category of categoryGroup.categories) {
+      total += category.budgeted;
+    }
+    return total;
+  },
+  getCategoryGroupSpent(categoryGroup) {
+    let total = 0;
+    for (const category of categoryGroup.categories) {
+      total += category.spent;
+    }
+    return total;
+  },
+  getCategoryGroupRemaining(categoryGroup) {
+    return this.getCategoryGroupBudgeted(categoryGroup) - this.getCategoryGroupSpent(categoryGroup);
+  },
+  getCategoryRemaining(category) {
+    return category.budgeted - category.spent;
+  },
 }
