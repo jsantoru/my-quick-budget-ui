@@ -17,11 +17,7 @@
 
       </div>
       <div class="middle-right">
-        <p>RIGHT SIDEBAR CONTENT</p>
-        <p>RIGHT SIDEBAR CONTENT</p>
-        <p>RIGHT SIDEBAR CONTENT</p>
-        <p>RIGHT SIDEBAR CONTENT</p>
-        <p>RIGHT SIDEBAR CONTENT</p>
+        <Summary></Summary>
       </div>
     </div>
     <div class="bottom">
@@ -34,12 +30,14 @@
 import Budget from './components/Budget.vue'
 import Toolbar from './components/Toolbar.vue'
 import Drawer from './components/Drawer.vue'
+import Summary from './components/Summary.vue'
 export default {
   name: 'app',
   components: {
     Budget,
     Toolbar,
-    Drawer
+    Drawer,
+    Summary
   },
   data: () => ({
   })

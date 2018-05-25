@@ -19,6 +19,8 @@ import Vue from 'vue';
 // import the App last so these styles override any from the component library styles
 import App from './App.vue';
 
+import store from './store';
+
 // use
 Vue.use(VueRouter);
 Vue.use(Vuetify);
@@ -31,7 +33,7 @@ new Vue({
   router,
   data: () => ({
     // central place where different components can share data
-    store: {}
+    store: store
   }),
   render: h => h(App)
 }).$mount('#app');
