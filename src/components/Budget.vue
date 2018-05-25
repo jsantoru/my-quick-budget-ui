@@ -1,6 +1,52 @@
 <template>
   <div class="budget-container">
+    <div class="budget-header">
+      <div class="heading">
+        <div class="heading-left">
+          <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
+        </div>
+        <div class="heading-center">
+          <div class="mat-table">
+            <div class="mat-header-row summary-header">
+              <div class="mat-header-cell">BUDGETED</div>
+              <div class="mat-header-cell">SPENT</div>
+              <div class="mat-header-cell">REMAINING</div>
+              <div class="mat-header-cell">DAYS REMAINING</div>
+            </div>
+            <div class="mat-row summary-row">
+              <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
+              <div class="mat-cell">{{getTotalSpent() | currency}}</div>
+              <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
+              <div class="mat-cell">{{getMonthDaysLeft()}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="heading-right">
+          <div class="mat-table">
+            <div class="mat-header-row summary-header">
+              <div class="mat-header-cell">NEXT PAYCHECK</div>
+              <div class="mat-header-cell">NEXT BILL DUE</div>
+            </div>
+            <div class="mat-row summary-row">
+              <div class="mat-cell">June 1st ($2145)</div>
+              <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
+            </div>
+          </div>
+        </div>
+        <div class="heading-far-right">
 
+        </div>
+      </div>
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell category-col">CATEGORY</div>
+          <div class="mat-header-cell currency-col">BUDGETED</div>
+          <div class="mat-header-cell currency-col">SPENT</div>
+          <div class="mat-header-cell currency-col last-col">REMAINING</div>
+        </div>
+      </div>
+    </div>
+    <div class="budget-body">
     <!-- Confirm - Delete Category-->
     <md-dialog-confirm
         :md-active.sync="confirmDeleteCategory"
@@ -11,54 +57,8 @@
         @md-cancel="cleanupDeleteCategory()"
         @md-confirm="deleteCategory()">
     </md-dialog-confirm>
-
-    <div class="heading">
-      <div class="heading-left">
-        <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
-      </div>
-      <div class="heading-center">
-        <div class="mat-table">
-          <div class="mat-header-row summary-header">
-            <div class="mat-header-cell">BUDGETED</div>
-            <div class="mat-header-cell">SPENT</div>
-            <div class="mat-header-cell">REMAINING</div>
-            <div class="mat-header-cell">DAYS REMAINING</div>
-          </div>
-          <div class="mat-row summary-row">
-            <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
-            <div class="mat-cell">{{getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{getMonthDaysLeft()}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="heading-right">
-        <div class="mat-table">
-          <div class="mat-header-row summary-header">
-            <div class="mat-header-cell">NEXT PAYCHECK</div>
-            <div class="mat-header-cell">NEXT BILL DUE</div>
-          </div>
-          <div class="mat-row summary-row">
-            <div class="mat-cell">June 1st ($2145)</div>
-            <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
-          </div>
-        </div>
-      </div>
-      <div class="heading-far-right">
-
-      </div>
-    </div>
     <div class="bottom-container">
       <div class="budget-table-container">
-    <!-- begin main table -->
-    <div class="mat-table">
-      <div class="mat-header-row">
-        <div class="mat-header-cell category-col">CATEGORY</div>
-        <div class="mat-header-cell currency-col">BUDGETED</div>
-        <div class="mat-header-cell currency-col">SPENT</div>
-        <div class="mat-header-cell currency-col last-col">REMAINING</div>
-      </div>
-    </div>
 
     <!-- dynamic -->
     <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" class="border-top">
@@ -121,6 +121,7 @@
     </v-expansion-panel>
   </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -128,6 +129,12 @@
   .budget-container {
     display: flex;
     flex-direction: column;
+
+    overflow: hidden;
+  }
+
+  .budget-body {
+    overflow: auto;
   }
 
   .bottom-container {

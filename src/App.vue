@@ -6,13 +6,14 @@
         <drawer></drawer>
       </div>
       <div class="middle-content">
-        <div class="middle-content-header">
+        <router-view></router-view>
+        <!--<div class="middle-content-header">
           <p>MIDDLE CONTENT HEADER</p>
         </div>
 
         <div class="middle-content-body">
-          <budget></budget>
-        </div>
+          <router-view></router-view>
+        </div>-->
 
       </div>
       <div class="middle-right">
