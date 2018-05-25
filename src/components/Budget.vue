@@ -120,9 +120,6 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
   </div>
-    <div class="right-side">
-      <h2>RIGHT SIDE</h2>
-    </div>
     </div>
   </div>
 </template>
