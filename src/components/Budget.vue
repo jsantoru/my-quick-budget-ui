@@ -351,7 +351,7 @@
           ]
         };
 
-        //this.budget = budget;
+        //todo: fire loading event and have other components that depend on the budget to wait for it before rendering
         this.$root.$data.store.budget = budget;
       }
     },

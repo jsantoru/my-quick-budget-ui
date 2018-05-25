@@ -5,20 +5,26 @@ export default {
     const date = new Date();
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
   },
+  // todo: pass in budget
   getTotalBudgeted() {
     let total = 0;
-    for (const categoryGroup of store.budget.categoryGroups) {
-      for (const category of categoryGroup.categories) {
-        total += category.budgeted;
+    if(store.budget && store.categoryGroups) {
+      for (const categoryGroup of store.budget.categoryGroups) {
+        for (const category of categoryGroup.categories) {
+          total += category.budgeted;
+        }
       }
     }
     return total;
   },
+  // todo: pass in budget
   getTotalSpent() {
     let total = 0;
-    for (const categoryGroup of store.budget.categoryGroups) {
-      for (const category of categoryGroup.categories) {
-        total += category.spent;
+    if(store.budget && store.categoryGroups) {
+      for (const categoryGroup of store.budget.categoryGroups) {
+        for (const category of categoryGroup.categories) {
+          total += category.spent;
+        }
       }
     }
     return total;
