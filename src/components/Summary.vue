@@ -1,10 +1,15 @@
 <template>
   <div class="summary">
     <div class="summary-top">
-      <md-toolbar class="md-transparent md-dense" md-elevation="0">
-        <md-icon>calendar_today</md-icon>
-        <h5 class="md-title" style="flex: 1">May 2018</h5>
-      </md-toolbar>
+      <md-button class="md-icon-button md-dense">
+        <md-icon>keyboard_arrow_left</md-icon>
+        <md-tooltip md-delay="0" md-direction="bottom">Previous</md-tooltip>
+      </md-button>
+      <span class="md-title summary-top-text">May 2018</span>
+      <md-button class="md-icon-button md-dense">
+        <md-icon>keyboard_arrow_right</md-icon>
+        <md-tooltip md-delay="0" md-direction="bottom">Next</md-tooltip>
+      </md-button>
     </div>
     <div class="summary-middle">
       <md-list>
@@ -54,6 +59,14 @@
 </template>
 
 <style scoped>
+
+  .summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
   .cash-badge {
     background-color: green;
   }
