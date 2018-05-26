@@ -7,8 +7,9 @@ export default {
   },
   // todo: pass in budget
   getTotalBudgeted() {
+    console.log("get total budgeted");
     let total = 0;
-    if(store.budget && store.categoryGroups) {
+    if(store.budget && store.budget.categoryGroups) {
       for (const categoryGroup of store.budget.categoryGroups) {
         for (const category of categoryGroup.categories) {
           total += category.budgeted;
@@ -20,7 +21,7 @@ export default {
   // todo: pass in budget
   getTotalSpent() {
     let total = 0;
-    if(store.budget && store.categoryGroups) {
+    if(store.budget && store.budget.categoryGroups) {
       for (const categoryGroup of store.budget.categoryGroups) {
         for (const category of categoryGroup.categories) {
           total += category.spent;
