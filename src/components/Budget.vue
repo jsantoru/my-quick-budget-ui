@@ -38,7 +38,7 @@
                   <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
                 </md-button>
-                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-primary md-dense"
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button  md-dense"
                            @click="$event.stopPropagation(); addCategory(categoryGroup)">
                   <md-icon>add</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
@@ -58,11 +58,16 @@
         <div v-for="category in categoryGroup.categories" class="mat-row">
           <div class="mat-cell category-col" @mouseover="category.isHover = true" @mouseleave="category.isHover = false">
             <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
-            <md-button v-if="category.isHover" class="md-icon-button md-raised md-primary md-dense">
+            <md-button v-if="category.isHover" class="md-icon-button md-dense">
               <md-icon>add</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Add Transaction</md-tooltip>
             </md-button>
-            <md-button v-if="category.isHover" class="md-icon-button md-raised md-accent md-dense"
+            <md-button v-if="category.isHover" class="md-icon-button md-dense"
+                       @click="onClickDeleteCategory(categoryGroup.categories, category)">
+              <md-icon>info</md-icon>
+              <md-tooltip md-delay="0" md-direction="bottom">Category Info</md-tooltip>
+            </md-button>
+            <md-button v-if="category.isHover" class="md-icon-button md-dense"
                 @click="onClickDeleteCategory(categoryGroup.categories, category)">
               <md-icon>delete</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Delete Category</md-tooltip>
@@ -90,11 +95,17 @@
 </template>
 
 <style scoped>
+
   .budget-container {
     display: flex;
     flex-direction: column;
 
     overflow: hidden;
+  }
+
+  .budget-header {
+    /* pad the headers for the width of the scrollbar -- assume its always showing for now */
+    padding-right: 17px;
   }
 
   .budget-body {
