@@ -62,8 +62,7 @@
               <md-icon>add</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Add Transaction</md-tooltip>
             </md-button>
-            <md-button v-if="category.isHover" class="md-icon-button md-dense"
-                       @click="onClickDeleteCategory(categoryGroup.categories, category)">
+            <md-button v-if="category.isHover" class="md-icon-button md-dense">
               <md-icon>info</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Category Info</md-tooltip>
             </md-button>
