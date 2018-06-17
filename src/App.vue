@@ -12,9 +12,16 @@
         <Summary></Summary>
       </div>
     </div>
+    <div class="bottom-bar">
+      <md-bottom-bar md-sync-route>
+        <md-bottom-bar-item md-label="budget" md-icon="home" to="/"></md-bottom-bar-item>
+        <md-bottom-bar-item md-label="accounts" md-icon="account_balance" to="/transactions"></md-bottom-bar-item>
+        <md-bottom-bar-item md-label="reports" md-icon="insert_chart" to="/reports"></md-bottom-bar-item>
+        <md-bottom-bar-item md-label="setup" md-icon="settings" to="/setup"></md-bottom-bar-item>
+      </md-bottom-bar>
+    </div>
     <div class="bottom">
       <p style="padding-left:10px;">© My Quick Budget {{(new Date()).getFullYear()}}</p>
-
     </div>
   </div>
 </template>
@@ -57,8 +64,7 @@ export default {
     flex-direction: column; /* stack divs vertically - this allows the top bar to be on top instead of on the left */
   }
   .top {
-    height: 72px; /* static height nav */
-
+    /*height: 72px; /* static height nav */
 
     /*flex:1;*/ /* relative size to divs at the same level */
   }
@@ -100,6 +106,22 @@ export default {
 
     min-width: 300px;
   }
+
+  .md-bottom-bar {
+    display: none;
+  }
+
+  /* setup mobile bottom bar */
+  @media (max-width: 725px) {
+    .md-bottom-bar {
+      display: inherit;
+    }
+
+    .bottom {
+      display: none;
+    }
+  }
+
   .bottom {
     height: 20px;
     /*flex: 0.5; /* relative size to divs at the same level */
@@ -107,7 +129,7 @@ export default {
 
 
 /* hide sidebars when width shrinks */
-@media (max-width:1000px) {
+@media (max-width:1200px) {
   .middle-left,
   .middle-right {
     display: none;
