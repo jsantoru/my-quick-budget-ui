@@ -5,7 +5,7 @@
         <div class="mat-header-row">
           <div class="mat-header-cell category-col">CATEGORY</div>
           <div class="mat-header-cell currency-col">BUDGETED</div>
-          <div class="mat-header-cell currency-col">SPENT</div>
+          <div class="mat-header-cell currency-col spent-col">SPENT</div>
           <div class="mat-header-cell currency-col last-col">REMAINING</div>
         </div>
       </div>
@@ -47,7 +47,7 @@
               </span>
             </div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
-            <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col spent-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col last-col">
               <span class="category-group-remaining-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</span>
             </div>
@@ -75,7 +75,7 @@
           <div class="mat-cell currency-col">
             <smart-input v-model="category.budgeted" :type="'currency'" :right-align="true" @focus.native="$event.target.select();"></smart-input>
           </div>
-          <div class="mat-cell currency-col">
+          <div class="mat-cell currency-col spent-col">
             <span>{{category.spent | currency}}</span>
           </div>
           <div class="mat-cell currency-col last-col">
@@ -215,6 +215,12 @@
   .currency-col {
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media (max-width: 725px) {
+    .spent-col {
+      display: none;
+    }
   }
 
   .last-col {
