@@ -68,7 +68,7 @@ export default {
   }
   .middle-left {
     /*flex: 1; /* relative size to divs at the same level */
-    min-width:230px;
+    min-width:300px;
     overflow: auto; /* enable scroll bar */
 
     border-right:1px solid lightgrey;

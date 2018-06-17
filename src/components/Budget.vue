@@ -25,7 +25,7 @@
       <div class="budget-table-container">
 
     <!-- dynamic -->
-    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" class="border-top">
+    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" :key="categoryGroup.name" class="border-top">
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
@@ -55,7 +55,7 @@
         </div>
 
         <!-- categories -->
-        <div v-for="category in categoryGroup.categories" class="mat-row">
+        <div v-for="category in categoryGroup.categories" :key="category.name" class="mat-row">
           <div class="mat-cell category-col" @mouseover="category.isHover = true" @mouseleave="category.isHover = false">
             <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
             <md-button v-if="category.isHover" class="md-icon-button md-dense">
@@ -308,9 +308,9 @@
               mdicon: "fastfood",
               faicon: "",
               categories: [
-                {name: "Groceries", budgeted: 300, spent: 327.37, isHover: false},
-                {name: "Family Eating Out", budgeted: 175, spent: 158.99, isHover: false},
-                {name: "Work Eating Out", budgeted: 80, spent: 77.47, isHover: false},
+                {name: "Groceries", budgeted: 5000, spent: 327.37, isHover: false},
+                {name: "Family Eating Out", budgeted: 175, spent: 325, isHover: false},
+                {name: "Work Eating Out", budgeted: 800, spent: 77.47, isHover: false},
               ],
               isHover: false
             },
@@ -318,7 +318,7 @@
               name: "Housing",
               mdicon: "home",
               categories: [
-                {name: "Mortgage", budgeted: 1510.80, spent: 1510.80, isHover: false},
+                {name: "Mortgage", budgeted: 2000.00, spent: 1900.00, isHover: false},
                 {name: "Additional Mortgage", budgeted: 0, spent: 0, isHover: false},
               ],
               isHover: false
@@ -327,7 +327,7 @@
               name: "Cars",
               mdicon: "directions_car",
               categories: [
-                {name: "Car Loan", budgeted: 307.55, spent: 0, isHover: false},
+                {name: "Car Loan", budgeted: 500.00, spent: 0, isHover: false},
                 {name: "Gas", budgeted: 125, spent: 95.42, isHover: false},
                 {name: "Insurance", budgeted: 125, spent: 120.44, isHover: false},
                 {name: "Maintenance", budgeted: 25, spent: 0, isHover: false},
@@ -352,9 +352,7 @@
                 {name: "Spotify", budgeted: 10.98, spent: 10.98, isHover: false},
                 {name: "Netflix", budgeted: 13.99, spent: 13.99, isHover: false},
                 {name: "Gym", budgeted: 29.98, spent: 29.98, isHover: false},
-                {name: "YNAB", budgeted: 5, spent: 0, isHover: false},
-                {name: "Amazon Prime", budgeted: 10, spent: 0, isHover: false},
-                {name: "Museum of Play", budgeted: 15, spent: 0, isHover: false},
+                {name: "Cable", budgeted: 155, spent: 0, isHover: false}
               ],
               isHover: false
             },
