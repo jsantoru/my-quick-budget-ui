@@ -3,8 +3,9 @@ import router from '@/router';
 
 const querystring = require('querystring');
 
-//const BudgetManagerAPI = 'https://x10qn6av83.execute-api.us-east-2.amazonaws.com/dev'
-const BudgetManagerAPI = 'http://localhost:3000'
+const BudgetManagerAPI = 'https://x10qn6av83.execute-api.us-east-2.amazonaws.com/dev'
+// Uncomment if also using the local deployment of Budget-API
+//const BudgetManagerAPI = 'http://localhost:3000'
 
 export default {
     user: {authenticated: false},
@@ -37,14 +38,14 @@ export default {
 
     signup (context, credentials, redirect) {
         var requestBody = {
+            email_address: credentials.email_address,
             user_name: credentials.username,
-            RAWpassword: credentials.password,
-            email_address: credentials.email_address
+            RAWpassword: credentials.password
         }
 
         var config = {
             headers: {
-                'Content-Type': 'application/x-www-form-urlended'
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }
 
