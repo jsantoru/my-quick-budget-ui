@@ -36,17 +36,29 @@ export default {
     },
 
     signup (context, credentials, redirect) {
-        Axios.post(`${BudgetManagerAPI}/dev/registration`, credentials).then(
-            ({data: {token}}) => {
-                context.$cookie.set('token', token, '1D')
-                context.validSignUp = true
-                this.user.authenticated = true
+        var requestBody = {
+            user_name: credentials.username,
+            RAWpassword: credentials.password,
+            email_address: credentials.email_address
+        }
 
-                if (redirect) router.push(redirect)
-            }).catch(({response: {data}}) => {
-                context.snackbar = true
-                context.message = data.message
-            })
+        var config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlended'
+            }
+        }
+
+        Axios.post(`${BudgetManagerAPI}/registration`, querystring.stringify(requestBody), config)
+         .then(res => {
+             context.$cookie.set('token', res.data.token, 1)
+             context.validSignUp = true
+             this.user.authenticated = true
+
+             if (redirect) router.push(redirect)
+         }).catch(err => {
+             context.snackbar = true
+             context.message = err
+         })
     },
 
     checkAuthentication () {
