@@ -30,6 +30,7 @@
 import Toolbar from './components/Toolbar.vue'
 import AccountsDrawer from './components/AccountsDrawer.vue'
 import Summary from './components/Summary.vue'
+
 export default {
   name: 'app',
   components: {
@@ -38,6 +39,7 @@ export default {
     Summary
   },
   data: () => ({
+
   })
 }
 </script>
