@@ -78,7 +78,7 @@
           let newValue = modifiedValue;
           if (this.typeValue === "currency") {
             // Recalculate value after ignoring "$" and "," in user input
-            newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""))
+            newValue = parseFloat(modifiedValue.replace(/[^\d.]/g, ""))
             // Ensure that it is not NaN
             if (isNaN(newValue)) {
               newValue = 0

@@ -1,6 +1,16 @@
 <template>
   <div class="budget-container">
-
+    <div class="budget-header">
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell category-col">CATEGORY</div>
+          <div class="mat-header-cell currency-col">BUDGETED</div>
+          <div class="mat-header-cell currency-col spent-col">SPENT</div>
+          <div class="mat-header-cell currency-col last-col">REMAINING</div>
+        </div>
+      </div>
+    </div>
+    <div class="budget-body">
     <!-- Confirm - Delete Category-->
     <md-dialog-confirm
         :md-active.sync="confirmDeleteCategory"
@@ -11,56 +21,11 @@
         @md-cancel="cleanupDeleteCategory()"
         @md-confirm="deleteCategory()">
     </md-dialog-confirm>
-
-    <div class="heading">
-      <div class="heading-left">
-        <h2 style="text-align:center;padding-bottom:5px;">May 2018</h2>
-      </div>
-      <div class="heading-center">
-        <div class="mat-table">
-          <div class="mat-header-row summary-header">
-            <div class="mat-header-cell">BUDGETED</div>
-            <div class="mat-header-cell">SPENT</div>
-            <div class="mat-header-cell">REMAINING</div>
-            <div class="mat-header-cell">DAYS REMAINING</div>
-          </div>
-          <div class="mat-row summary-row">
-            <div class="mat-cell">{{getTotalBudgeted() | currency}}</div>
-            <div class="mat-cell">{{getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{getTotalBudgeted() - getTotalSpent() | currency}}</div>
-            <div class="mat-cell">{{getMonthDaysLeft()}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="heading-right">
-        <div class="mat-table">
-          <div class="mat-header-row summary-header">
-            <div class="mat-header-cell">NEXT PAYCHECK</div>
-            <div class="mat-header-cell">NEXT BILL DUE</div>
-          </div>
-          <div class="mat-row summary-row">
-            <div class="mat-cell">June 1st ($2145)</div>
-            <div class="mat-cell">June 1st ($1510 - Mortgage)</div>
-          </div>
-        </div>
-      </div>
-      <div class="heading-far-right">
-
-      </div>
-    </div>
-
-    <!-- begin main table -->
-    <div class="mat-table">
-      <div class="mat-header-row">
-        <div class="mat-header-cell category-col">CATEGORY</div>
-        <div class="mat-header-cell currency-col">BUDGETED</div>
-        <div class="mat-header-cell currency-col">SPENT</div>
-        <div class="mat-header-cell currency-col last-col">REMAINING</div>
-      </div>
-    </div>
+    <div class="bottom-container">
+      <div class="budget-table-container">
 
     <!-- dynamic -->
-    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" class="border-top">
+    <v-expansion-panel v-for="categoryGroup in budget.categoryGroups" :key="categoryGroup.name" class="border-top">
       <v-expansion-panel-content :value="true" class="grey lighten-3">
         <div slot="header">
           <div class="category-group-row">
@@ -73,7 +38,7 @@
                   <md-icon v-if="!categoryGroup.mdicon">label</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
                 </md-button>
-                <md-button v-if="categoryGroup.isHover" class="md-icon-button md-raised md-primary md-dense"
+                <md-button v-if="categoryGroup.isHover" class="md-icon-button  md-dense"
                            @click="$event.stopPropagation(); addCategory(categoryGroup)">
                   <md-icon>add</md-icon>
                   <md-tooltip md-delay="0" md-direction="bottom">Add Category</md-tooltip>
@@ -82,7 +47,7 @@
               </span>
             </div>
             <div class="mat-cell currency-col">{{getCategoryGroupBudgeted(categoryGroup) | currency}}</div>
-            <div class="mat-cell currency-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
+            <div class="mat-cell currency-col spent-col">{{getCategoryGroupSpent(categoryGroup) | currency}}</div>
             <div class="mat-cell currency-col last-col">
               <span class="category-group-remaining-cell">{{getCategoryGroupRemaining(categoryGroup) | currency}}</span>
             </div>
@@ -90,14 +55,18 @@
         </div>
 
         <!-- categories -->
-        <div v-for="category in categoryGroup.categories" class="mat-row">
+        <div v-for="category in categoryGroup.categories" :key="category.name" class="mat-row">
           <div class="mat-cell category-col" @mouseover="category.isHover = true" @mouseleave="category.isHover = false">
             <smart-input v-model="category.name" @focus.native="$event.target.select();"></smart-input>
-            <md-button v-if="category.isHover" class="md-icon-button md-raised md-primary md-dense">
+            <md-button v-if="category.isHover" class="md-icon-button md-dense">
               <md-icon>add</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Add Transaction</md-tooltip>
             </md-button>
-            <md-button v-if="category.isHover" class="md-icon-button md-raised md-accent md-dense"
+            <md-button v-if="category.isHover" class="md-icon-button md-dense">
+              <md-icon>info</md-icon>
+              <md-tooltip md-delay="0" md-direction="bottom">Category Info</md-tooltip>
+            </md-button>
+            <md-button v-if="category.isHover" class="md-icon-button md-dense"
                 @click="onClickDeleteCategory(categoryGroup.categories, category)">
               <md-icon>delete</md-icon>
               <md-tooltip md-delay="0" md-direction="bottom">Delete Category</md-tooltip>
@@ -106,7 +75,7 @@
           <div class="mat-cell currency-col">
             <smart-input v-model="category.budgeted" :type="'currency'" :right-align="true" @focus.native="$event.target.select();"></smart-input>
           </div>
-          <div class="mat-cell currency-col">
+          <div class="mat-cell currency-col spent-col">
             <span>{{category.spent | currency}}</span>
           </div>
           <div class="mat-cell currency-col last-col">
@@ -119,49 +88,36 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
   </div>
+    </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+
   .budget-container {
-    /*width:75%;*/
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
   }
 
-  .heading {
-    box-shadow: 0 3px 2px -2px gray;
+  .budget-header {
+    /* pad the headers for the width of the scrollbar -- assume its always showing for now */
+    padding-right: 17px;
+  }
 
+  .budget-body {
+    overflow: auto;
+  }
+
+  .bottom-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
   }
 
-  .heading-center {
-    flex: 3;
-    text-align: center;
-  }
-
-  .heading-left {
-    flex: 1;
-  }
-
-  .heading-right {
-    flex: 2;
-    padding-left:20px;
-    padding-right:20px;
-    text-align: center;
-  }
-
-  .heading-far-right {
-    flex: 1;
-  }
-
-  .summary-header {
-    background-color: whitesmoke;
-  }
-
-  .summary-row {
-    border-bottom: 1px solid lightgray;
-    margin-bottom: 15px;
+  .budget-table-container {
+    flex: 5;
   }
 
   .category-group-name {
@@ -261,6 +217,12 @@
     justify-content: flex-end;
   }
 
+  @media (max-width: 725px) {
+    .spent-col {
+      display: none;
+    }
+  }
+
   .last-col {
     padding-right:20px;
   }
@@ -280,14 +242,13 @@
 
 <script>
   import VExpansionPanel from "vuetify/src/components/VExpansionPanel/VExpansionPanel";
-  import VueNumeric from 'vue-numeric';
   import SmartInput from './SmartInput.vue';
+  import budgetCalcUtils from '../shared/BudgetCalcUtils';
 
   export default {
-    components: {VExpansionPanel, VueNumeric, SmartInput},
+    components: {VExpansionPanel, SmartInput},
     name: "Budget",
     data: () => ({
-      budget: "",
       labelText:"",
       confirmDeleteCategory: false,
       deleteCategoryObject: null
@@ -295,6 +256,9 @@
     computed: {
       store() {
         return this.$root.$data.store;
+      },
+      budget() {
+        return this.store.budget;
       }
     },
     methods: {
@@ -327,47 +291,17 @@
       },
 
       /* methods for computing table values */
-      getMonthDaysLeft(){
-        const date = new Date();
-        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() - date.getDate();
-      },
-      getTotalBudgeted() {
-        let total = 0;
-        for (const categoryGroup of this.budget.categoryGroups) {
-          for (const category of categoryGroup.categories) {
-            total += category.budgeted;
-          }
-        }
-        return total;
-      },
-      getTotalSpent() {
-        let total = 0;
-        for (const categoryGroup of this.budget.categoryGroups) {
-          for (const category of categoryGroup.categories) {
-            total += category.spent;
-          }
-        }
-        return total;
-      },
       getCategoryGroupBudgeted(categoryGroup) {
-        let total = 0;
-        for (const category of categoryGroup.categories) {
-          total += category.budgeted;
-        }
-        return total;
+        return budgetCalcUtils.getCategoryGroupBudgeted(categoryGroup);
       },
       getCategoryGroupSpent(categoryGroup) {
-        let total = 0;
-        for (const category of categoryGroup.categories) {
-          total += category.spent;
-        }
-        return total;
+        return budgetCalcUtils.getCategoryGroupSpent(categoryGroup);
       },
       getCategoryGroupRemaining(categoryGroup) {
-        return this.getCategoryGroupBudgeted(categoryGroup) - this.getCategoryGroupSpent(categoryGroup);
+        return budgetCalcUtils.getCategoryGroupRemaining(categoryGroup);
       },
       getCategoryRemaining(category) {
-        return category.budgeted - category.spent;
+        return budgetCalcUtils.getCategoryRemaining(category);
       },
 
       retrieveBudget() {
@@ -380,9 +314,9 @@
               mdicon: "fastfood",
               faicon: "",
               categories: [
-                {name: "Groceries", budgeted: 300, spent: 327.37, isHover: false},
-                {name: "Family Eating Out", budgeted: 175, spent: 158.99, isHover: false},
-                {name: "Work Eating Out", budgeted: 80, spent: 77.47, isHover: false},
+                {name: "Groceries", budgeted: 5000, spent: 327.37, isHover: false},
+                {name: "Family Eating Out", budgeted: 175, spent: 325, isHover: false},
+                {name: "Work Eating Out", budgeted: 800, spent: 77.47, isHover: false},
               ],
               isHover: false
             },
@@ -390,7 +324,7 @@
               name: "Housing",
               mdicon: "home",
               categories: [
-                {name: "Mortgage", budgeted: 1510.80, spent: 1510.80, isHover: false},
+                {name: "Mortgage", budgeted: 2000.00, spent: 1900.00, isHover: false},
                 {name: "Additional Mortgage", budgeted: 0, spent: 0, isHover: false},
               ],
               isHover: false
@@ -399,7 +333,7 @@
               name: "Cars",
               mdicon: "directions_car",
               categories: [
-                {name: "Car Loan", budgeted: 307.55, spent: 0, isHover: false},
+                {name: "Car Loan", budgeted: 500.00, spent: 0, isHover: false},
                 {name: "Gas", budgeted: 125, spent: 95.42, isHover: false},
                 {name: "Insurance", budgeted: 125, spent: 120.44, isHover: false},
                 {name: "Maintenance", budgeted: 25, spent: 0, isHover: false},
@@ -424,16 +358,15 @@
                 {name: "Spotify", budgeted: 10.98, spent: 10.98, isHover: false},
                 {name: "Netflix", budgeted: 13.99, spent: 13.99, isHover: false},
                 {name: "Gym", budgeted: 29.98, spent: 29.98, isHover: false},
-                {name: "YNAB", budgeted: 5, spent: 0, isHover: false},
-                {name: "Amazon Prime", budgeted: 10, spent: 0, isHover: false},
-                {name: "Museum of Play", budgeted: 15, spent: 0, isHover: false},
+                {name: "Cable", budgeted: 155, spent: 0, isHover: false}
               ],
               isHover: false
             },
           ]
         };
 
-        this.budget = budget;
+        //todo: fire loading event and have other components that depend on the budget to wait for it before rendering
+        this.$root.$data.store.budget = budget;
       }
     },
     created() {

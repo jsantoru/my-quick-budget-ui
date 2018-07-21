@@ -33,9 +33,11 @@
                 <img src="../assets/joe-avatar.png" alt="Avatar">
               </md-avatar>
             </md-button>
+            <md-button class="md-icon-button" @click="showRightSideDrawer = !showRightSideDrawer">
+              <md-icon>menu</md-icon>
+            </md-button>
           </div>
         </div>
-
       </md-app-toolbar>
 
       <!-- drawer/menu -->
@@ -52,9 +54,13 @@
 </template>
 
 <style scoped>
+  .page-container {
+  }
+
   /* allow the content to take up the entire viewport height*/
   .md-app {
     height: 100vh;
+    width: 100vw;
   }
 
   /* set the width of the drawer */
@@ -81,7 +87,7 @@
 </style>
 
 <script>
-  import Drawer from './Drawer.vue';
+  import Drawer from './AccountsDrawer.vue';
 
   export default {
     name: "PageContainer",
@@ -90,7 +96,8 @@
     },
     data: () => ({
       menuVisible: true,
-      isCollapsed: false
+      isCollapsed: false,
+      showRightSideDrawer: true
     }),
     methods: {
       toggleMenu() {
