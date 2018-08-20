@@ -1,14 +1,14 @@
 <template>
   <div class="container" ref="container">
-    <div class="top"><toolbar></toolbar></div>
+    <div class="top"><toolbar v-if="showDrawer"></toolbar></div>
     <div class="middle">
-      <div class="middle-left">
+      <div class="middle-left" v-if="showDrawer">
         <AccountsDrawer></AccountsDrawer>
       </div>
       <div class="middle-content">
         <router-view></router-view>
       </div>
-      <div class="middle-right">
+      <div class="middle-right" v-if="showDrawer">
         <Summary></Summary>
       </div>
     </div>
@@ -39,7 +39,8 @@ export default {
     Summary
   },
   data: () => ({
-
+    showDrawer: false,
+    showRightSideDrawer: false
   })
 }
 </script>
