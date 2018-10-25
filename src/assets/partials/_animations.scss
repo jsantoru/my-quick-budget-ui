@@ -43,3 +43,12 @@
       transform: translateX(0);
     }
   }
+  @keyframes slideOutToRight {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(2500px);
+        opacity: 0;
+      }
+  }

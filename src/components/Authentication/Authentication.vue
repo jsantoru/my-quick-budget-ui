@@ -1,84 +1,75 @@
 <template>
-  <div class="l-auth-container">
-    <div class="l-auth">
-      <v-form v-model="validLogin">
-        <v-text-field label="Username"
-                      v-model="credentials.username"
-                      prepend-icon="account_box"
-                      :rules="rules"
-                      required
-                      color="light-blue lighten-1">
-        </v-text-field>
+       <div class="centered-container">
+        <md-content class="md-elevation-3" v-if="loginVisible">
+            <div class="title">
+                <div class="md-title">Login</div>
+            </div>
 
-        <v-text-field label="Password"
-                      v-model="credentials.password"
-                      prepend-icon="lock"
-                      :rules="rules"
-                      :append-icon="loginPasswordVisible ? 'visibility' : 'visibility_off'"
-                      :append-icon-cb="() => (loginPasswordVisible = !loginPasswordVisible)"
-                      :type="loginPasswordVisible ? 'text' : 'password'"
-                      color="light-blue lighten-1"
-                      required>
-        </v-text-field>
+            <div class="form">
+                <md-field>
+                    <label>Email</label>
+                    <md-input v-model="credentials.username" autofocus required></md-input>
+                </md-field>
+                <md-field md-has-password>
+                    <label>Password</label>
+                    <md-input v-model="credentials.password" type="password" required></md-input>
+                </md-field>
+            </div>
 
-        <v-btn flat color="light-blue lighten-1" @click.native="signUpVisible = true">Create account</v-btn>
-        <v-btn color="light-blue lighten-1" @click.native="submitAuthentication()">Login</v-btn>
-      </v-form>
+            <div class="actions md-layout md-alignment-center-space-between">
+                <a href="/resetpassword">Reset password</a>
+                <md-button class="md-raised md-primary" @click="submitAuthentication()">Log in</md-button>
+            </div>
+
+            <div class="loading-overlay" v-if="loading">
+                <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
+            </div>
+        </md-content>
+
+        <md-content class="md-elevation-3" v-if="signUpVisible">
+            <div class="title">
+                <div class="md-title">Sign Up</div>
+            </div>
+
+            <div class="form">
+                <md-field>
+                    <label>Email</label>
+                    <md-input v-model="newUser.email_address" autofocus required></md-input>
+                </md-field>
+                <md-field md-has-password>
+                    <label>Password</label>
+                    <md-input v-model="newUser.password" type="password" required></md-input>
+                </md-field>
+                <md-field md-has-password>
+                    <label>Confirm Password</label>
+                    <md-input required></md-input>
+                </md-field>
+            </div>
+        </md-content>
+
+        <md-snackbar :md-duration="Infinity" :md-active.sync="snackbar" md-persistent v-model="snackbar">
+            <span>{{ message }}</span>
+            <md-button class="md-primary" @click="snackbar=false">Retry</md-button>
+            <md-button class="md-primary" @click="snackbar=false, loginVisible=false, signUpVisible=true">Register</md-button>
+        </md-snackbar>
     </div>
-
-    <div class="l-signup" v-if="signUpVisible">
-      <v-form v-model="validSignUp">
-        <v-text-field label="Email Address"
-                      v-model="newUser.email_address"
-                      prepend-icon="email"
-                      :rules="rules"
-                      required
-                      color="light-blue lighten-1">
-        </v-text-field>
-
-        <v-text-field label="Username"
-                      v-model="newUser.username"
-                      prepend-icon="account_box"
-                      :rules="rules"
-                      required
-                      color="light-blue lighten-1">
-        </v-text-field>
-
-        <v-text-field label="Password"
-                      v-model="newUser.password"
-                      prepend-icon="lock"
-                      :rules="rules"
-                      :append-icon="signUpPasswordVisible ? 'visibility' : 'visibility_off'"
-                      :append-icon-cb="() => (signUpPasswordVisible = !signUpPasswordVisible)"
-                      :type="signUpPasswordVisible ? 'text' : 'password'"
-                      color="light-blue lighten-1"
-                      required>
-        </v-text-field>
-
-        <v-btn block color="light-blue lighten-1" @click.native="submitSignUp()">Sign Up</v-btn>
-      </v-form>
-    </div>
-
-    <v-snackbar :timeout="6000"
-                bottom="bottom"
-                color="red lighten-1"
-                v-model="snackbar">
-      {{ message }}
-    </v-snackbar>
-  </div>
 </template>
-
 <script>
   import Authentication from '@/components/Authentication'
+  //import VueMaterial from 'vue-material'
+  import 'vue-material/dist/vue-material.min.css'
+
   export default {
     data () {
       return {
         snackbar: false,
         validLogin: false,
         validSignUp: false,
+        loginVisible: true,
         signUpVisible: false,
         loginPasswordVisible: false,
         signUpPasswordVisible: false,
+        loading: false,
         rules: [ (value) => !!value || 'This field is required' ],
         credentials: {
           username: '',
@@ -94,7 +85,12 @@
     },
     methods: {
       submitAuthentication () {
-        Authentication.authenticate(this, this.credentials, '/')
+        this.loading = true;
+        // Using this setTimeout to "fake" a slow credential lookup
+        setTimeout(() => {
+            Authentication.authenticate(this, this.credentials, '/');
+        }, 5000);
+        //Authentication.authenticate(this, this.credentials, '/')
       },
 
       submitSignUp () {
@@ -103,39 +99,59 @@
     }
   }
 </script>
-
 <style lang="scss">
- @import "../../assets/styles";
-
- body {
-     &:after {
-        content: '';
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        //background-color: $background-tint;
-        opacity: .3;
-        z-index: -1;
-     }
- }
-
- .l-auth {
-    background-color: $background-color;
-    padding: 15px;
-    margin: 45px auto;
-    min-width: 272px;
-    max-width: 320px;
-    animation: bounceIn 1s forwards ease;
-  }
-
-.l-signup {
-    background-color: $background-color;
-    padding: 15px;
-    margin: 45px auto;
-    min-width: 272px;
-    max-width: 320px;
-    animation: slideInFromLeft 1s forwards ease;
-  }
+    .centered-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 100vh;
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            img {
+            margin-bottom: 16px;
+            max-width: 80px;
+            }
+        }
+        .actions {
+            .md-button {
+            margin: 0;
+            }
+        }
+        .form {
+            margin-bottom: 60px;
+        }
+        .background {
+            background: url(../../assets/clouds.jpg);
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .md-content {
+            z-index: 1;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        .loading-overlay {
+            //z-index: 10;
+            top: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 </style>

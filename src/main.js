@@ -4,8 +4,8 @@ import router from './router.js';
 import VueCookie from 'vue-cookie';
 
 // vuetify additional components (expansion panel)
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css'
+//import Vuetify from 'vuetify';
+//import 'vuetify/dist/vuetify.min.css'
 
 // vue-material for most components
 import VueMaterial from 'vue-material';
@@ -28,7 +28,7 @@ import store from './store';
 
 // use
 Vue.use(VueRouter);
-Vue.use(Vuetify);
+//Vue.use(Vuetify);
 Vue.use(VueMaterial);
 Vue.use(Vue2Filters);
 Vue.use(VueCookie);

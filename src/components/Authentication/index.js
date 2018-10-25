@@ -3,9 +3,9 @@ import router from '@/router';
 
 const querystring = require('querystring');
 
-const BudgetManagerAPI = 'https://x10qn6av83.execute-api.us-east-2.amazonaws.com/dev'
+//const BudgetManagerAPI = 'https://x10qn6av83.execute-api.us-east-2.amazonaws.com/dev'
 // Uncomment if also using the local deployment of Budget-API
-//const BudgetManagerAPI = 'http://localhost:3000'
+const BudgetManagerAPI = 'http://localhost:3000'
 
 export default {
     user: {authenticated: false},
@@ -31,8 +31,14 @@ export default {
 
             if(redirect) router.push(redirect)
         }).catch(err => {
-            context.snackbar = true
-            context.message = err
+            if(err.response.status === 401) {
+                context.snackbar = true
+                context.message = err.response.data.error.message
+                context.loading = false
+            } else {
+                context.snackbar = true
+                context.message = err
+            }
         })
     },
 
